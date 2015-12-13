@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="/cocotask/webjars/bootstrap/3.3.5/css/bootstrap.css"/>
+    <script type="text/javascript" src="/cocotask/webjars/jquery/2.1.4/jquery.min.js"/>
+    <script type="text/javascript" src="/cocotask/webjars/bootstrap/3.3.5/js/bootstrap.min.js"/>
+    <title>Paper Create Form</title>
+</head>
+<body>
+<div class="container">
+    <h2>결재문서 작성</h2>
+
+    <form id="paperForm" action="#" th:action="@{/eapp/paper/create}" th:object="${eappPaperDTO}"
+          method="post" role="form" class="bs-example bs-example-form">
+        <div class="container">
+            <div>
+                <h2>
+                    <span th:text="${message}">Test</span>
+                </h2>
+            </div>
+
+            <div class="form-group input-group input-group-sm col-lg-3">
+                <span class="input-group-addon">제목</span>
+                <input type="text" th:field="*{subject}" class="form-control" placeholder="제목을 입력하세요" />
+            </div>
+
+            <div class="form-group input-group input-group-sm col-lg-3">
+                <span class="input-group-addon">내용</span>
+                <input type="text" th:field="*{content}" class="form-control" placeholder="내용을 입력하세요 (Editor)" />
+            </div>
+
+            <!--<div class="input-group input-group-sm">
+                <label for="subject">Subject:</label>
+                <input type="text" class="form-control" id="subject" placeholder="Enter Subject"/>
+            </div>-->
+
+            <div>
+                <div class="form-group input-group input-group-sm col-lg-3">
+                    <span class="input-group-addon">결재선</span>
+                    <input type="text" th:field="*{userUidList}" class="form-control" placeholder="검토자" />
+                    <input type="text" th:field="*{userUidList}" class="form-control" placeholder="검토자" />
+                    <input type="text" th:field="*{userUidList}" class="form-control" placeholder="결재자" />
+                </div>
+            </div>
+
+            <div class="form-group input-group input-group-sm">
+                <input type="submit" value="작성" class="btn btn-default"/>
+                <input type="reset" value="초기화" class="btn btn-default"/>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
