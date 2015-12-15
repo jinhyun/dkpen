@@ -5,15 +5,15 @@
     <link type="text/css" rel="stylesheet" href="/webjars/bootstrap/3.3.5/css/bootstrap.css"/>
     <script type="text/javascript" src="/cocotask/webjars/jquery/2.1.4/jquery.min.js"/>
     <script type="text/javascript" src="/cocotask/webjars/bootstrap/3.3.5/js/bootstrap.min.js"/>
-    <script type="text/javascript" src="/cocotask/static/js/eapp/eappPaperCreate.js"/>
     <title>User List</title>
 </head>
 <body>
 <form>
     <div th:fragment="resultsList" class="results-block">
-        <table class="table table-hover">
-            <thead>
+        <table class="table table-hover" id="userListTable">
+        <thead>
             <tr>
+                <th></th>
                 <th>이름</th>
                 <th>이메일</th>
                 <th>uid</th>
@@ -21,6 +21,7 @@
             </thead>
             <tbody>
             <tr id = "addEappLineTr" th:each="userDTO : ${userDTOList}" onclick="addEappLine(this)">
+                <td class="sorter"/>
                 <td id="userName" th:text="${userDTO.name}"/>
                 <td id="userEmail" th:text="${userDTO.Email}"/>
                 <td id="userUid" th:text="${userDTO.uid}"/>
@@ -29,13 +30,14 @@
         </table>
 
         <h4>선택한 결재선</h4>
-        <table class="table table-hover">
+        <table class="table table-hover " id="eappLineTable">
             <thead>
-            <tr>
-                <th>이름</th>
-                <th>이메일</th>
-                <th>uid</th>
-            </tr>
+                <tr>
+                    <th></th>
+                    <th>이름</th>
+                    <th>이메일</th>
+                    <th>uid</th>
+                </tr>
             </thead>
             <tbody id="eappLineTbody">
             </tbody>
