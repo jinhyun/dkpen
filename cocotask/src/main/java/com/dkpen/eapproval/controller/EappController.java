@@ -1,6 +1,7 @@
 package com.dkpen.eapproval.controller;
 
 import com.dkpen.eapproval.dto.EappPaperDTO;
+import com.dkpen.eapproval.dto.UserDTO;
 import com.dkpen.eapproval.service.EappApproveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/eapp")
@@ -34,5 +36,14 @@ public class EappController {
         model.addAttribute("eappPaperDTO", new EappPaperDTO());
 
         return "eapproval/eappResultMessage";
+    }
+
+    @RequestMapping(value = "/line/userList", method = RequestMethod.GET)
+    public String getLineUserList(Model model) {
+        List <UserDTO> userDTOList = approveService.getUserList();
+
+        model.addAttribute("userDTOList", userDTOList);
+
+        return "eapproval/eappUserList :: resultsList";
     }
 }

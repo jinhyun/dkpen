@@ -4,6 +4,7 @@ import com.dkpen.eapproval.domain.EappLine;
 import com.dkpen.eapproval.domain.EappPaper;
 import com.dkpen.eapproval.domain.User;
 import com.dkpen.eapproval.dto.EappPaperDTO;
+import com.dkpen.eapproval.dto.UserDTO;
 import com.dkpen.eapproval.repository.EappLineRepository;
 import com.dkpen.eapproval.repository.EappPaperRepository;
 import com.dkpen.eapproval.repository.UserRepository;
@@ -60,5 +61,20 @@ public class EappApproveService {
         paperRepository.save(paper);
 
         return "결재문서를 작성하였습니다.";
+    }
+
+    public List<UserDTO> getUserList() {
+        List <User> userList = userRepository.findAll();
+        List <UserDTO> userDTOList = new ArrayList<UserDTO>();
+
+        for (User user : userList) {
+            UserDTO userDTO = new UserDTO();
+            userDTO.setUid(user.getUid());
+            userDTO.setEmail(user.getEmail());
+            userDTO.setName(user.getName());
+            userDTOList.add(userDTO);
+        }
+
+        return userDTOList;
     }
 }
