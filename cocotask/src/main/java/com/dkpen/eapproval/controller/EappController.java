@@ -40,9 +40,11 @@ public class EappController {
 
     @RequestMapping(value = "/line/userList", method = RequestMethod.GET)
     public String getLineUserList(Model model) {
-        List <UserDTO> userDTOList = approveService.getUserList();
+        UserDTO loginUserDTO = approveService.getUser(3);     // olaf
+        List <UserDTO> userDTOList = approveService.getUserListExceptLoginUser(loginUserDTO);
 
         model.addAttribute("userDTOList", userDTOList);
+        model.addAttribute("loginUserDTO", loginUserDTO);
 
         return "eapproval/eappUserList :: resultsList";
     }

@@ -63,11 +63,15 @@ public class EappApproveService {
         return "결재문서를 작성하였습니다.";
     }
 
-    public List<UserDTO> getUserList() {
+    public List<UserDTO> getUserListExceptLoginUser(UserDTO loginUserDTO) {
         List <User> userList = userRepository.findAll();
         List <UserDTO> userDTOList = new ArrayList<UserDTO>();
 
         for (User user : userList) {
+            if (loginUserDTO.getUid() == user.getUid()){
+                continue;
+            }
+
             UserDTO userDTO = new UserDTO();
             userDTO.setUid(user.getUid());
             userDTO.setEmail(user.getEmail());
@@ -76,5 +80,16 @@ public class EappApproveService {
         }
 
         return userDTOList;
+    }
+
+    public UserDTO getUser(long userUid) {
+        User loginUser = userRepository.findOne(userUid);
+        UserDTO loginUserDTO = new UserDTO();
+
+        loginUserDTO.setUid(loginUser.getUid());
+        loginUserDTO.setEmail(loginUser.getEmail());
+        loginUserDTO.setName(loginUser.getName());
+
+        return loginUserDTO;
     }
 }

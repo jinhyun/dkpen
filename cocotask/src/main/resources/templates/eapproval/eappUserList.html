@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link type="text/css" rel="stylesheet" href="/webjars/bootstrap/3.3.5/css/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="/cocotask/webjars/bootstrap/3.3.5/css/bootstrap.css"/>
     <script type="text/javascript" src="/cocotask/webjars/jquery/2.1.4/jquery.min.js"/>
     <script type="text/javascript" src="/cocotask/webjars/bootstrap/3.3.5/js/bootstrap.min.js"/>
     <title>User List</title>
@@ -11,7 +11,7 @@
 <form>
     <div th:fragment="resultsList" class="results-block">
         <table class="table table-hover" id="userListTable">
-        <thead>
+            <thead>
             <tr>
                 <th></th>
                 <th>이름</th>
@@ -32,14 +32,20 @@
         <h4>선택한 결재선</h4>
         <table class="table table-hover " id="eappLineTable">
             <thead>
-                <tr>
-                    <th></th>
-                    <th>이름</th>
-                    <th>이메일</th>
-                    <th>uid</th>
-                </tr>
+            <tr>
+                <th></th>
+                <th>이름</th>
+                <th>이메일</th>
+                <th>uid</th>
+            </tr>
             </thead>
             <tbody id="eappLineTbody">
+            <tr>
+                <td/>
+                <td id="userName" th:text="${loginUserDTO.name}"/>
+                <td id="userEmail" th:text="${loginUserDTO.Email}"/>
+                <td id="userUid" th:text="${loginUserDTO.uid}"/>
+            </tr>
             </tbody>
         </table>
     </div>
