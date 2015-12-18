@@ -86,11 +86,12 @@
                     <span id="eappLineType_2" class="input-group-addon"></span>
                 </div>
 
-                <div class="input-group ">
+                <!-- TODO: (Bug) field="*{userUidList} 필드에 데이터가 없을시에 null로 저장된다. -->
+                <!--<div class="input-group ">
                     <input type="hidden" id="eappLine_3" th:field="*{userUidList}" class="form-control"/>
                     <input type="text" id="eappLineUserName_3" class="form-control" th:readonly="true"/>
                     <span id="eappLineType_3" class="input-group-addon"></span>
-                </div>
+                </div>-->
             </div>
 
             <div class="form-group input-group input-group-sm">
