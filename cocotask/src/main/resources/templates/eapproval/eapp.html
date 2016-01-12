@@ -13,7 +13,7 @@
 <body>
 <div class="container-fluid">
     <div class="row content">
-        <div th:replace="eapproval/fragments/eappLeft :: eappLeft"></div>
+        <div th:replace="eapproval/eappLeft :: eappLeft"></div>
 
         <div id="eappContents" class="col-sm-9">
             <h4>E-Approval</h4>
@@ -21,9 +21,6 @@
     </div>
 </div>
 
-<footer class="container-fluid">
-    <p>Footer Text</p>
-</footer>
-
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

@@ -14,14 +14,22 @@
 </head>
 <body>
 <form>
-    <div class="container">
-        <h3>
-            <span th:text="${message}">Test</span>
-        </h3>
+    <div class="container-fluid">
+        <div class="row content">
+            <div th:replace="eapproval/eappLeft :: eappLeft"></div>
 
-        <!-- thymeleaf의 flagment 로 구현 -->
-        <input type="button" value="결재문서 작성하기" class="btn btn-default" onclick="goToCreatePaper()"/>
+            <div id="eappContents" class="col-sm-9">
+                <h3>
+                    <span th:text="${message}">Test</span>
+                </h3>
+
+                <!-- thymeleaf의 flagment 로 구현 -->
+                <input type="button" value="결재문서 작성하기" class="btn btn-default" onclick="goToCreatePaper()"/>
+            </div>
+        </div>
     </div>
+
+    <div th:replace="fragments/footer :: footer"></div>
 </form>
 </body>
 </html>

@@ -51,6 +51,6 @@ public class EappController {
 
     @RequestMapping(value = "/view/eappLeft", method = RequestMethod.GET)
     public String viewEappLeft() {
-        return "eapproval/fragments/eappLeft";
+        return "eapproval/eappLeft";
     }
 }

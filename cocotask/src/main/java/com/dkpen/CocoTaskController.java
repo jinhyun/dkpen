@@ -10,4 +10,9 @@ public class CocoTaskController {
     public String cocotask() {
         return "cocotask";
     }
+
+    @RequestMapping(value = "/view/footer")
+    public String viewFooter() {
+        return "fragments/footer";
+    }
 }
