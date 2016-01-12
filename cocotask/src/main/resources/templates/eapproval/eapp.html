@@ -3,8 +3,27 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>E-Approval</title>
+    <link type="text/css" rel="stylesheet" href="/cocotask/webjars/bootstrap/3.3.5/css/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="/cocotask/static/css/layout.css"/>
+
+    <script type="text/javascript" src="/cocotask/webjars/jquery/2.1.4/jquery.min.js"/>
+    <script type="text/javascript" src="/cocotask/webjars/bootstrap/3.3.5/js/bootstrap.min.js"/>
+    <script type="text/javascript" src="/cocotask/static/js/eapproval/eappLeft.js"/>
 </head>
 <body>
-    <p>E-Approval Main</p>
+<div class="container-fluid">
+    <div class="row content">
+        <div th:replace="eapproval/fragments/eappLeft :: eappLeft"></div>
+
+        <div id="eappContents" class="col-sm-9">
+            <h4>E-Approval</h4>
+        </div>
+    </div>
+</div>
+
+<footer class="container-fluid">
+    <p>Footer Text</p>
+</footer>
+
 </body>
 </html>

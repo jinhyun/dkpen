@@ -48,4 +48,9 @@ public class EappController {
 
         return "eapproval/eappUserList :: resultsList";
     }
+
+    @RequestMapping(value = "/view/eappLeft", method = RequestMethod.GET)
+    public String viewEappLeft() {
+        return "eapproval/fragments/eappLeft";
+    }
 }

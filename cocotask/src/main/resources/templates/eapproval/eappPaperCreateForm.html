@@ -3,6 +3,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link type="text/css" rel="stylesheet" href="/cocotask/webjars/bootstrap/3.3.5/css/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="/cocotask/static/css/layout.css"/>
+
     <script type="text/javascript" src="/cocotask/webjars/jquery/2.1.4/jquery.min.js"/>
     <script type="text/javascript" src="/cocotask/webjars/bootstrap/3.3.5/js/bootstrap.min.js"/>
     <script type="text/javascript" src="/cocotask/static/js/eapproval/eappPaperCreate.js"/>
@@ -17,89 +19,93 @@
     <title>Paper Create Form</title>
 </head>
 <body>
-<div class="container">
-    <h2>결재문서 작성</h2>
+<div class="container-fluid">
+    <div class="row content">
+        <div th:replace="eapproval/fragments/eappLeft :: eappLeft"></div>
 
-    <form id="paperForm" action="#" th:action="@{/eapp/paper/create}" th:object="${eappPaperDTO}"
-          method="post" role="form" class="bs-example bs-example-form">
-        <div class="container">
-            <div class="form-group btn-group" role="group">
-                <input type="button" class="btn btn-info btn-sm" value="결재선" data-toggle="modal" data-target="#eappLineModal" onclick="searchEappLiner()"/>
-            </div>
+        <h2>결재문서 작성</h2>
 
-            <!-- Modal -->
-            <div id="eappLineModal" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">결재선 설정</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>
-                                <input type="text" id="eappLinerName" name="eappLinerName" placeholder="결재자 검색"/>
-                                <button type="button" class="btn btn-default btn-sm" onclick="searchEappLiner()">
-                                    <span class="glyphicon glyphicon-search"></span> Search
-                                </button>
-                            <div id="resultUserList">
-                                <!-- 사용자 목록 조회 -->
+        <form id="paperForm" action="#" th:action="@{/eapp/paper/create}" th:object="${eappPaperDTO}"
+              method="post" role="form" class="bs-example bs-example-form">
+            <div class="container">
+                <div class="form-group btn-group" role="group">
+                    <input type="button" class="btn btn-info btn-sm" value="결재선" data-toggle="modal" data-target="#eappLineModal" onclick="searchEappLiner()"/>
+                </div>
+
+                <!-- Modal -->
+                <div id="eappLineModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">결재선 설정</h4>
                             </div>
-                            </p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" onclick="setEappLine()">확인</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                            <div class="modal-body">
+                                <p>
+                                    <input type="text" id="eappLinerName" name="eappLinerName" placeholder="결재자 검색"/>
+                                    <button type="button" class="btn btn-default btn-sm" onclick="searchEappLiner()">
+                                        <span class="glyphicon glyphicon-search"></span> Search
+                                    </button>
+                                <div id="resultUserList">
+                                    <!-- 사용자 목록 조회 -->
+                                </div>
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" onclick="setEappLine()">확인</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
 
-            <div class="form-group input-group input-group-sm col-lg-3">
-                <span class="input-group-addon">제목</span>
-                <input type="text" th:field="*{subject}" class="form-control" placeholder="제목을 입력하세요" />
-            </div>
-
-            <div class="form-group input-group input-group-sm col-lg-3">
-                <span class="input-group-addon">내용</span>
-                <input type="text" th:field="*{content}" class="form-control" placeholder="내용을 입력하세요 (Editor)" />
-            </div>
-
-            <div class="form-group input-group input-group-sm col-sm-3">
-                <span class="input-group-addon">결재선</span>
-                <div class="input-group">
-                    <input type="hidden" id="eappLine_0" th:field="*{userUidList}" class="form-control"/>
-                    <input type="text" id="eappLineUserName_0" class="form-control" placeholder="결재선을 지정해주세요" th:readonly="true"/>
-                    <span id="eappLineType_0" class="input-group-addon"></span>
+                <div class="form-group input-group input-group-sm col-lg-3">
+                    <span class="input-group-addon">제목</span>
+                    <input type="text" th:field="*{subject}" class="form-control" placeholder="제목을 입력하세요" />
                 </div>
 
-                <div class="input-group">
-                    <input type="hidden" id="eappLine_1" th:field="*{userUidList}" class="form-control"/>
-                    <input type="text" id="eappLineUserName_1" class="form-control" th:readonly="true"/>
-                    <span id="eappLineType_1" class="input-group-addon"></span>
+                <div class="form-group input-group input-group-sm col-lg-3">
+                    <span class="input-group-addon">내용</span>
+                    <input type="text" th:field="*{content}" class="form-control" placeholder="내용을 입력하세요 (Editor)" />
                 </div>
 
-                <div class="input-group">
-                    <input type="hidden" id="eappLine_2" th:field="*{userUidList}" class="form-control"/>
-                    <input type="text" id="eappLineUserName_2" class="form-control" th:readonly="true"/>
-                    <span id="eappLineType_2" class="input-group-addon"></span>
+                <div class="form-group input-group input-group-sm col-sm-3">
+                    <span class="input-group-addon">결재선</span>
+                    <div class="input-group">
+                        <input type="hidden" id="eappLine_0" th:field="*{userUidList}" class="form-control"/>
+                        <input type="text" id="eappLineUserName_0" class="form-control" placeholder="결재선을 지정해주세요" th:readonly="true"/>
+                        <span id="eappLineType_0" class="input-group-addon"></span>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="hidden" id="eappLine_1" th:field="*{userUidList}" class="form-control"/>
+                        <input type="text" id="eappLineUserName_1" class="form-control" th:readonly="true"/>
+                        <span id="eappLineType_1" class="input-group-addon"></span>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="hidden" id="eappLine_2" th:field="*{userUidList}" class="form-control"/>
+                        <input type="text" id="eappLineUserName_2" class="form-control" th:readonly="true"/>
+                        <span id="eappLineType_2" class="input-group-addon"></span>
+                    </div>
+
+                    <!-- TODO: (Bug) field="*{userUidList} 필드에 데이터가 없을시에 null로 저장된다. -->
+                    <!--<div class="input-group ">
+                        <input type="hidden" id="eappLine_3" th:field="*{userUidList}" class="form-control"/>
+                        <input type="text" id="eappLineUserName_3" class="form-control" th:readonly="true"/>
+                        <span id="eappLineType_3" class="input-group-addon"></span>
+                    </div>-->
                 </div>
 
-                <!-- TODO: (Bug) field="*{userUidList} 필드에 데이터가 없을시에 null로 저장된다. -->
-                <!--<div class="input-group ">
-                    <input type="hidden" id="eappLine_3" th:field="*{userUidList}" class="form-control"/>
-                    <input type="text" id="eappLineUserName_3" class="form-control" th:readonly="true"/>
-                    <span id="eappLineType_3" class="input-group-addon"></span>
-                </div>-->
+                <div class="form-group input-group input-group-sm">
+                    <input type="submit" value="작성" class="btn btn-default btn-sm"/>
+                    <input type="reset" value="초기화" class="btn btn-default btn-sm"/>
+                </div>
             </div>
-
-            <div class="form-group input-group input-group-sm">
-                <input type="submit" value="작성" class="btn btn-default btn-sm"/>
-                <input type="reset" value="초기화" class="btn btn-default btn-sm"/>
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 </body>
 </html>
