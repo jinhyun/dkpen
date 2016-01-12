@@ -23,7 +23,7 @@
     <div class="row content">
         <div th:replace="eapproval/eappLeft :: eappLeft"></div>
 
-        <div id="eappContents">
+        <div id="eappContents" class="col-sm-9">
             <h4>결재문서 작성</h4>
 
             <form id="paperForm" action="#" th:action="@{/eapp/paper/create}" th:object="${eappPaperDTO}"
