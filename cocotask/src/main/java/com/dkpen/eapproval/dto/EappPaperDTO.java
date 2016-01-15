@@ -3,63 +3,63 @@ package com.dkpen.eapproval.dto;
 import java.util.List;
 
 public class EappPaperDTO {
-    private long uid;
+    private long paperUid;
 
-    private String subject;
+    private String paperSubject;
 
-    private String content;
+    private String paperContent;
 
-    private String regDate;
+    private String paperRegDate;
 
-    private String regUserName;
+    private String paperRegUserName;
 
-    private List<Long> userUidList;
+    private List<Long> paperUserUidList;
 
-    public List<Long> getUserUidList() {
-        return userUidList;
+    public List<Long> getPaperUserUidList() {
+        return paperUserUidList;
     }
 
-    public void setUserUidList(List<Long> userUidList) {
-        this.userUidList = userUidList;
+    public void setPaperUserUidList(List<Long> paperUserUidList) {
+        this.paperUserUidList = paperUserUidList;
     }
 
-    public long getUid() {
-        return uid;
+    public long getPaperUid() {
+        return paperUid;
     }
 
-    public void setUid(long uid) {
-        this.uid = uid;
+    public void setPaperUid(long paperUid) {
+        this.paperUid = paperUid;
     }
 
-    public String getSubject() {
-        return subject;
+    public String getPaperSubject() {
+        return paperSubject;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setPaperSubject(String paperSubject) {
+        this.paperSubject = paperSubject;
     }
 
-    public String getContent() {
-        return content;
+    public String getPaperContent() {
+        return paperContent;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setPaperContent(String paperContent) {
+        this.paperContent = paperContent;
     }
 
-    public String getRegDate() {
-        return regDate;
+    public String getPaperRegDate() {
+        return paperRegDate;
     }
 
-    public void setRegDate(String regDate) {
-        this.regDate = regDate;
+    public void setPaperRegDate(String paperRegDate) {
+        this.paperRegDate = paperRegDate;
     }
 
-    public String getRegUserName() {
-        return regUserName;
+    public String getPaperRegUserName() {
+        return paperRegUserName;
     }
 
-    public void setRegUserName(String regUserName) {
-        this.regUserName = regUserName;
+    public void setPaperRegUserName(String paperRegUserName) {
+        this.paperRegUserName = paperRegUserName;
     }
 }

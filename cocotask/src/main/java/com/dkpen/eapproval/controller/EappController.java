@@ -53,4 +53,14 @@ public class EappController {
     public String viewEappLeft() {
         return "eapproval/eappLeft";
     }
+
+    @RequestMapping(value = "/paper/waitList", method = RequestMethod.GET)
+    public String viewWaitList(Model model) {
+        UserDTO loginUserDTO = approveService.getUser(1);     // anna
+        List<EappPaperDTO> waitPaperDTOList = approveService.getWaitPaperList(loginUserDTO);
+
+        model.addAttribute("waitPaperDTOList", waitPaperDTOList);
+
+        return "eapproval/eappPaperWaitList";
+    }
 }

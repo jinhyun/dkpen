@@ -23,6 +23,17 @@ public class EappLine {
     @JoinColumn(name = "PAPER_UID")
     private EappPaper eappPaper;
 
+    @Column(name = "APPROVE_STATUS")
+    private String approveStatus;
+
+    public String getApproveStatus() {
+        return approveStatus;
+    }
+
+    public void setApproveStatus(String approveStatus) {
+        this.approveStatus = approveStatus;
+    }
+
     public long getUid() {
         return uid;
     }
