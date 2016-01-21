@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>E-Approval</title>
+    <!-- css -->
+    <link type="text/css" rel="stylesheet" href="/cocotask/webjars/bootstrap/3.3.5/css/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="/cocotask/static/css/layout.css"/>
+
+    <!-- javascript library -->
+    <script type="text/javascript" src="/cocotask/webjars/jquery/2.1.4/jquery.min.js"/>
+    <script type="text/javascript" src="/cocotask/webjars/bootstrap/3.3.5/js/bootstrap.min.js"/>
+
+    <!-- javascript module -->
+    <script type="text/javascript" src="/cocotask/static/js/eapproval/eappPaperCreate.js"/>
+    <title>CocoTask-Paper</title>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row content">
+        <div th:replace="eapproval/eappLeft :: eappLeft"></div>
+
+        <div id="eappContents" class="col-sm-9">
+            <h4>결재문서</h4>
+            <form id="paperForm" action="#" th:object="${paperDTO}"
+                  method="post" role="form" class="bs-example bs-example-form">
+                <div class="container">
+                    <div class="form-group input-group input-group-sm col-lg-3">
+                        <span class="input-group-addon">제목</span>
+                        <input type="text" th:field="*{paperSubject}" class="form-control" readonly="readonly"/>
+                    </div>
+
+                    <div class="form-group input-group input-group-sm col-lg-3">
+                        <span class="input-group-addon">내용</span>
+                        <input type="text" th:field="*{paperContent}" class="form-control" readonly="readonly"/>
+                    </div>
+
+                    <div class="form-group input-group input-group-sm col-sm-3">
+                        <span class="input-group-addon">결재선</span>
+                        <div id="lineList" name="lineList" class="input-group" th:each="lineDTO : ${paperDTO.eappLineDTOList}">
+                            <input type="text" class="form-control" th:value="${lineDTO.lineUserName}" readonly="readonly"/>
+                            <input type="hidden" th:id="approveStatus_+${lineDTOStat.index}" th:value="${lineDTO.approveStatus}"/>
+                            <input type="hidden" th:id="lineOrder_+${lineDTOStat.index}" th:value="${lineDTO.lineOrder}"/>
+                            <span th:id="eappLineType_+${lineDTOStat.index}" class="input-group-addon"></span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<script type="text/javascript">
+    (function() {
+        setEappLineType();
+    })();
+</script>
+</body>
+</html>

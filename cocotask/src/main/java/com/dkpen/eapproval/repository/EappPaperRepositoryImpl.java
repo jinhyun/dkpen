@@ -36,4 +36,23 @@ public class EappPaperRepositoryImpl implements CustomEappPaperRepository {
 
         return paperDTOList;
     }
+
+    @Override
+    public EappPaperDTO searchPaper(long paperUid) {
+        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+        QEappPaper qEappPaper = QEappPaper.eappPaper;
+        QEappLine qEappLine = QEappLine.eappLine;
+
+        EappPaperDTO eappPaperDTO = queryFactory.selectFrom(qEappPaper)
+                .select(Projections.bean(EappPaperDTO.class,
+                        qEappPaper.uid.as("paperUid"),
+                        qEappPaper.subject.as("paperSubject"),
+                        qEappPaper.content.as("paperContent"),
+                        qEappPaper.regDate.as("paperRegDate"),
+                        qEappPaper.regUserName.as("paperRegUserName")))
+                .where(qEappPaper.uid.eq(paperUid))
+                .fetchOne();
+
+        return eappPaperDTO;
+    }
 }

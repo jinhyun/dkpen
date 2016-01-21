@@ -117,4 +117,18 @@ public class EappApproveService {
 
         return waitPaperDTOList;
     }
+
+    public EappPaperDTO getViewPaper(EappPaperDTO eappPaperDTO) {
+        EappPaperDTO paperDTO = getPaperLine(eappPaperDTO.getPaperUid());
+
+        return paperDTO;
+    }
+
+    public EappPaperDTO getPaperLine(long paperUid) {
+        EappPaperDTO paperDTO = paperRepository.searchPaper(paperUid);
+        List<EappLineDTO> eappLineDTOList = lineRepository.searchLine(paperDTO.getPaperUid());
+        paperDTO.setEappLineDTOList(eappLineDTOList);
+
+        return paperDTO;
+    }
 }

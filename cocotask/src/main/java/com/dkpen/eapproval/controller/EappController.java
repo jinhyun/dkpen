@@ -57,10 +57,25 @@ public class EappController {
     @RequestMapping(value = "/paper/waitList", method = RequestMethod.GET)
     public String viewWaitList(Model model) {
         UserDTO loginUserDTO = approveService.getUser(1);     // anna
-        List<EappPaperDTO> waitPaperDTOList = approveService.getWaitPaperList(loginUserDTO);
+        List<EappPaperDTO> waitPaperDTOList = approveService.getWaitPaperList(loginUserDTO);    //TODO: resultPaperDTOList
 
-        model.addAttribute("waitPaperDTOList", waitPaperDTOList);
+        model.addAttribute("waitPaperDTOList", waitPaperDTOList);   //TODO: paperDTOList
+        model.addAttribute("eappPaperDTO", new EappPaperDTO());
 
         return "eapproval/eappPaperWaitList";
     }
+
+    // TODO: 결재문서 조회 "/paper/view"
+    @RequestMapping(value = "/paper/view", method = RequestMethod.POST)
+    public String viewPaper(@ModelAttribute EappPaperDTO eappPaperDTO, Model model) {
+        UserDTO loginUserDTO = approveService.getUser(1);     // anna
+        EappPaperDTO resultPaperDTO = approveService.getViewPaper(eappPaperDTO);
+        model.addAttribute("paperDTO", resultPaperDTO);
+
+        return "eapproval/eappPaperForm";
+    }
+
+    // TODO: 결재처리 "/paper/approve"
+
+    // TODO: 결재문서 수정 "/paper/edit"
 }

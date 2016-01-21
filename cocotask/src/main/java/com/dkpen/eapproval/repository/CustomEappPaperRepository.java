@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface CustomEappPaperRepository {
     List<EappPaperDTO> searchWaitPaperList(User user);
+
+    EappPaperDTO searchPaper(long paperUid);
 }

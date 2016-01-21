@@ -15,6 +15,16 @@ public class EappPaperDTO {
 
     private List<Long> paperUserUidList;
 
+    private List<EappLineDTO> eappLineDTOList;
+
+    public List<EappLineDTO> getEappLineDTOList() {
+        return eappLineDTOList;
+    }
+
+    public void setEappLineDTOList(List<EappLineDTO> eappLineDTOList) {
+        this.eappLineDTOList = eappLineDTOList;
+    }
+
     public List<Long> getPaperUserUidList() {
         return paperUserUidList;
     }

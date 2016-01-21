@@ -49,3 +49,14 @@ var eappLineType = function(userOrder, userLastOrder) {
 
   return lineType;
 };
+
+var setEappLineType = function() {
+  var lineList = $('[name="lineList"]');
+  var dataSize = lineList.length;
+
+  for (var i = 0; i < dataSize; i++) {
+    var lineOrder = $("#lineOrder_" + i).val();
+    var lineType = eappLineType(lineOrder, dataSize);
+    $("#eappLineType_" + i).text(lineType);
+  }
+};
