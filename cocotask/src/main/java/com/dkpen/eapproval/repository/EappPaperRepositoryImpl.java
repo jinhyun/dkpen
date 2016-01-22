@@ -18,7 +18,7 @@ public class EappPaperRepositoryImpl implements CustomEappPaperRepository {
     private EntityManager em;
 
     @Override
-    public List<EappPaperDTO> searchWaitPaperList(User user) {
+    public List<EappPaperDTO> searchWaitPaperList(User user, String approveStatus) {
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
         QEappPaper qEappPaper = QEappPaper.eappPaper;
         QEappLine qEappLine = QEappLine.eappLine;
@@ -31,7 +31,7 @@ public class EappPaperRepositoryImpl implements CustomEappPaperRepository {
                         qEappPaper.regDate.as("paperRegDate"),
                         qEappPaper.regUserName.as("paperRegUserName")))
                 .innerJoin(qEappPaper.EappLineList, qEappLine)
-                .where(qEappLine.user.eq(user))
+                .where(qEappLine.user.eq(user), qEappLine.approveStatus.eq(approveStatus))
                 .fetch();
 
         return paperDTOList;

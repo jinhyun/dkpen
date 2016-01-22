@@ -110,11 +110,7 @@ public class EappApproveService {
         user.setEmail(userDTO.getEmail());
         user.setName(userDTO.getName());
 
-        EappLine eappLine = new EappLine();
-        eappLine.setUser(user);
-        eappLine.setApproveStatus(EappLineDTO.APPROVE_STATUS_READY);
-
-        List<EappPaperDTO> waitPaperDTOList = paperRepository.searchWaitPaperList(user);
+        List<EappPaperDTO> waitPaperDTOList = paperRepository.searchWaitPaperList(user, EappLineDTO.APPROVE_STATUS_READY);
 
         return waitPaperDTOList;
     }
