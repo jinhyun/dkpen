@@ -6,6 +6,11 @@
     <!-- css -->
     <link type="text/css" rel="stylesheet" href="/cocotask/webjars/bootstrap/3.3.5/css/bootstrap.css"/>
     <link type="text/css" rel="stylesheet" href="/cocotask/static/css/layout.css"/>
+    <style type="text/css">
+        .text-center {
+            text-align: center;
+        }
+    </style>
 
     <!-- javascript library -->
     <script type="text/javascript" src="/cocotask/webjars/jquery/2.1.4/jquery.min.js"/>
@@ -13,6 +18,8 @@
 
     <!-- javascript module -->
     <script type="text/javascript" src="/cocotask/static/js/eapproval/eappPaperCreate.js"/>
+    <script type="text/javascript" src="/cocotask/static/js/eapproval/eappApprove.js"/>
+
     <title>CocoTask-Paper</title>
 </head>
 <body>
@@ -22,9 +29,39 @@
 
         <div id="eappContents" class="col-sm-9">
             <h4>결재문서</h4>
-            <form id="paperForm" action="#" th:object="${paperDTO}"
+            <form id="paperForm" name="paperForm" action="#" th:object="${paperDTO}"
                   method="post" role="form" class="bs-example bs-example-form">
                 <div class="container">
+                    <input type="hidden" id="approveStatus" th:field="${eappApproveDTO.approveStatus}"/>
+                    <input type="hidden" id="paperUid" th:field="*{paperUid}"/>
+
+                    <div class="form-group btn-group" role="group">
+                        <input type="button" class="btn btn-info btn-sm" value="결재" data-toggle="modal" data-target="#eappApproveModal"/>
+                    </div>
+
+                    <!-- Modal -->
+                    <div id="eappApproveModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">결재처리</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>
+                                        결재 처리 방법을 선택하여 주십시오.
+                                    </p>
+                                </div>
+                                <div class="modal-footer text-center">
+                                    <button type="button" class="btn btn-primary" onclick="doApprove('done');">결재</button>
+                                    <button type="button" class="btn btn-default" onclick="doApprove('hold');">보류</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-group input-group input-group-sm col-lg-3">
                         <span class="input-group-addon">제목</span>
                         <input type="text" th:field="*{paperSubject}" class="form-control" readonly="readonly"/>

@@ -3,6 +3,7 @@ package com.dkpen.eapproval.service;
 import com.dkpen.eapproval.domain.EappLine;
 import com.dkpen.eapproval.domain.EappPaper;
 import com.dkpen.eapproval.domain.User;
+import com.dkpen.eapproval.dto.EappApproveDTO;
 import com.dkpen.eapproval.dto.EappLineDTO;
 import com.dkpen.eapproval.dto.EappPaperDTO;
 import com.dkpen.eapproval.dto.UserDTO;
@@ -130,5 +131,31 @@ public class EappApproveService {
         paperDTO.setEappLineDTOList(eappLineDTOList);
 
         return paperDTO;
+    }
+
+    // TODO: 변수명 수정
+    public void approvePaper(EappApproveDTO eappApproveDTO, UserDTO loginUserDTO) {
+        List<EappLineDTO> resultLineDTOList = lineRepository.searchLine(eappApproveDTO.getPaperUid());
+
+        for (int i = 0; i < resultLineDTOList.size(); i++){
+            EappLineDTO eappLineDTO = resultLineDTOList.get(i);
+            String approveStatus = eappLineDTO.getApproveStatus();
+            long userUid = eappLineDTO.getUserUid();
+
+            if (approveStatus.equals(EappLineDTO.APPROVE_STATUS_READY)
+                    && userUid == loginUserDTO.getUid()) {
+                EappLine eappLine = lineRepository.findOne(eappLineDTO.getLineUid());
+                eappLine.setApproveStatus(eappApproveDTO.getApproveStatus());
+
+                //TODO: lineOrder로 정렬되어있다는 전제 (보완)
+                if(resultLineDTOList.size() != i+1) {
+                    EappLineDTO nextEappLineDTO = resultLineDTOList.get(i+1);
+                    EappLine nextEappLine = lineRepository.findOne(nextEappLineDTO.getLineUid());
+                    nextEappLine.setApproveStatus(EappLineDTO.APPROVE_STATUS_READY);
+                }
+
+                break;
+            }
+        }
     }
 }

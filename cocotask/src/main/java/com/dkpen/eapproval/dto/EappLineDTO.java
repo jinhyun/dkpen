@@ -13,15 +13,15 @@ public class EappLineDTO {
     private int lineOrder;
     private String approveStatus;
     private UserDTO userDTO;
-    private User user;  //test
+    private long userUid;
     private EappPaperDTO eappPaperDTO;
 
-    public User getUser() {
-        return user;
+    public long getUserUid() {
+        return userUid;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserUid(long userUid) {
+        this.userUid = userUid;
     }
 
     public long getLineUid() {

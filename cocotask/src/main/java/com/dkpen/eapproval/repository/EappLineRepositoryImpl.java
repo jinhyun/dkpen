@@ -27,8 +27,10 @@ public class EappLineRepositoryImpl implements CustomEappLineRepository {
                         qEappLine.uid.as("lineUid"),
                         qEappLine.userName.as("lineUserName"),
                         qEappLine.lineOrder.as("lineOrder"),
-                        qEappLine.approveStatus.as("approveStatus")))
+                        qEappLine.approveStatus.as("approveStatus"),
+                        qEappLine.user.uid.as("userUid")))
                 .where(qEappPaper.uid.eq(paperUid))
+                .orderBy(qEappLine.lineOrder.asc())
                 .fetch();
 
         return eappLineDTOList;

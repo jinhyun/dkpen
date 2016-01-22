@@ -9,8 +9,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface EappLineRepository extends JpaRepository<EappLine, Long> {
+public interface EappLineRepository extends JpaRepository<EappLine, Long>, CustomEappLineRepository {
     List<EappLine> findByUserAndApproveStatus(User user, String approveStatus);
-
-    List<EappLineDTO> searchLine(long paperUid);
 }

@@ -1,5 +1,7 @@
 package com.dkpen.eapproval.controller;
 
+import com.dkpen.eapproval.dto.EappApproveDTO;
+import com.dkpen.eapproval.dto.EappLineDTO;
 import com.dkpen.eapproval.dto.EappPaperDTO;
 import com.dkpen.eapproval.dto.UserDTO;
 import com.dkpen.eapproval.service.EappApproveService;
@@ -65,17 +67,28 @@ public class EappController {
         return "eapproval/eappPaperWaitList";
     }
 
-    // TODO: 결재문서 조회 "/paper/view"
     @RequestMapping(value = "/paper/view", method = RequestMethod.POST)
     public String viewPaper(@ModelAttribute EappPaperDTO eappPaperDTO, Model model) {
         UserDTO loginUserDTO = approveService.getUser(1);     // anna
         EappPaperDTO resultPaperDTO = approveService.getViewPaper(eappPaperDTO);
         model.addAttribute("paperDTO", resultPaperDTO);
+        model.addAttribute("eappApproveDTO", new EappApproveDTO());
 
         return "eapproval/eappPaperForm";
     }
 
     // TODO: 결재처리 "/paper/approve"
+    @RequestMapping(value = "/paper/approve", method = RequestMethod.POST)
+    public String approvePaper(@ModelAttribute EappApproveDTO eappApproveDTO, Model model) {
+        UserDTO loginUserDTO = approveService.getUser(1);     // anna
+        approveService.approvePaper(eappApproveDTO, loginUserDTO);   // TODO: exception / message 보완
+
+
+        List<EappPaperDTO> waitPaperDTOList = approveService.getWaitPaperList(loginUserDTO);    //TODO: resultPaperDTOList
+        model.addAttribute("waitPaperDTOList", waitPaperDTOList);   //TODO: paperDTOList
+        model.addAttribute("eappPaperDTO", new EappPaperDTO());
+        return "eapproval/eappPaperWaitList";
+    }
 
     // TODO: 결재문서 수정 "/paper/edit"
 }
