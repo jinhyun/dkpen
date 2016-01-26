@@ -30,6 +30,8 @@
 
         <!-- QueryDsl-Jpa Version -->
         <querydsl-jpa.version>4.0.5</querydsl-jpa.version>
+
+        <!--<java.version>1.8</java.version>-->
     </properties>
 
     <dependencies>
@@ -98,6 +100,12 @@
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-jpa</artifactId>
             <version>${querydsl-jpa.version}</version>
+        </dependency>
+
+        <!-- Spring security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
     </dependencies>
 
