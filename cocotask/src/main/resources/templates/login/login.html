@@ -6,11 +6,18 @@
     <!-- css -->
     <link type="text/css" rel="stylesheet" href="/cocotask/webjars/bootstrap/3.3.5/css/bootstrap.min.css"/>
     <link type="text/css" rel="stylesheet" href="/cocotask/static/css/login.css"/>
+
+    <!-- javascript library -->
+    <script type="text/javascript" src="/cocotask/webjars/jquery/2.1.4/jquery.min.js"/>
+
+    <!-- javascript module -->
+    <script type="text/javascript" src="/cocotask/static/js/login/login.js"/>
+
     <title>CocoTask</title>
 </head>
 <body>
     <div class="wrapper">
-        <form class="form-signin" th:action="@{/login}" method="post">
+        <form name="loginForm" class="form-signin" th:action="@{/login}" method="post">
 
             <h2 class="form-signin-heading">Login</h2>
 
@@ -22,10 +29,15 @@
                 You have been logged out.
             </div>
 
-            <input type="text" class="form-control" name="username" placeholder="Email Address" required="required"
-                   autofocus="autofocus" value="anna@dkpen.com"/>
-            <input type="password" class="form-control" name="password" placeholder="Password" required="required"
-                   value="1234"/>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Email Address"
+                   required="required" autofocus="autofocus" value="anna@dkpen.com"/>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                   required="required" value="1234"/>
+
+            <button id="user_anna">anna</button>
+            <button id="user_elsa">elsa</button>
+            <button id="user_olaf">olaf</button>
+            <button id="user_kristoff">kristoff</button>
 
             <label class="checkbox">
                 <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"/> Remember me
@@ -34,5 +46,11 @@
             <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
         </form>
     </div>
+
+    <script type="text/javascript">
+        (function(){
+            loginInit();
+        })();
+    </script>
 </body>
 </html>

@@ -20,7 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .csrf().disable()   // 이 프로젝트에서만 발생되네..
             .authorizeRequests()
-                .antMatchers("/", "/static/css/**", "/webjars/**").permitAll()
+                .antMatchers("/", "/static/**", "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
