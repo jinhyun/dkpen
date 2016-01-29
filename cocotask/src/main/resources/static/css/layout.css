@@ -1,4 +1,5 @@
-.row.content {height: 850px}
+/* TODO: 동적으로 크기 변경 */
+.row.content {height: 650px}
 
 /* Set gray background color and 100% height */
 .sidenav {
@@ -6,6 +7,7 @@
     height: 100%;
 }
 
+/* TODO: 동적으로 크기 변경 */
 /* Set black background color, white text and some padding */
 footer {
     background-color: #555;

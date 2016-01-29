@@ -1,5 +1,7 @@
 package com.dkpen.eapproval.domain;
 
+import com.dkpen.user.domain.Role;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,6 +16,20 @@ public class User {
 
     @Column(name = "USER_NAME")
     private String name;
+
+    @Column(name = "USER_PASSWORD")
+    private String passwordHash;
+
+    @Column(name = "USER_ROLE")
+    private Role role;
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     public void setUid(long uid) {
         this.uid = uid;
@@ -37,6 +53,14 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public Role getRole() {
+        return role;
     }
 }
 

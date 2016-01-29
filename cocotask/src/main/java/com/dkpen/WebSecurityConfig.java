@@ -6,16 +6,21 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
             .csrf().disable()   // 이 프로젝트에서만 발생되네..
             .authorizeRequests()
-                .antMatchers("/", "/home").permitAll()
+                .antMatchers("/", "/static/css/**", "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
@@ -29,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
-            .inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER");
+            .userDetailsService(userDetailsService)
+            .passwordEncoder(new BCryptPasswordEncoder());
     }
 }

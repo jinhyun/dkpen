@@ -1,20 +1,38 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Spring Security Example </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>E-Approval</title>
+    <!-- css -->
+    <link type="text/css" rel="stylesheet" href="/cocotask/webjars/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/cocotask/static/css/login.css"/>
+    <title>CocoTask</title>
 </head>
 <body>
-    <div th:if="${param.error}">
-        Invalid username and password.
+    <div class="wrapper">
+        <form class="form-signin" th:action="@{/login}" method="post">
+
+            <h2 class="form-signin-heading">Login</h2>
+
+            <div th:if="${param.error}">
+                Invalid username and password.
+            </div>
+
+            <div th:if="${param.logout}">
+                You have been logged out.
+            </div>
+
+            <input type="text" class="form-control" name="username" placeholder="Email Address" required="required"
+                   autofocus="autofocus" value="anna@dkpen.com"/>
+            <input type="password" class="form-control" name="password" placeholder="Password" required="required"
+                   value="1234"/>
+
+            <label class="checkbox">
+                <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"/> Remember me
+            </label>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        </form>
     </div>
-    <div th:if="${param.logout}">
-        You have been logged out.
-    </div>
-    <form th:action="@{/login}" method="post">
-        <div><label> User Name : <input type="text" name="username" value="user"/> </label></div>
-        <div><label> Password: <input type="password" name="password" value="password"/> </label></div>
-        <div><input type="submit" value="Sign In"/></div>
-    </form>
 </body>
 </html>
