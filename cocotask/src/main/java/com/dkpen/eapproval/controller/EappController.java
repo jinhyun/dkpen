@@ -1,16 +1,18 @@
 package com.dkpen.eapproval.controller;
 
+import com.dkpen.eapproval.domain.User;
 import com.dkpen.eapproval.dto.EappApproveDTO;
-import com.dkpen.eapproval.dto.EappLineDTO;
 import com.dkpen.eapproval.dto.EappPaperDTO;
 import com.dkpen.eapproval.dto.UserDTO;
 import com.dkpen.eapproval.service.EappApproveService;
+import com.dkpen.user.domain.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import java.util.List;
 
 @Controller
@@ -42,7 +44,8 @@ public class EappController {
 
     @RequestMapping(value = "/line/userList", method = RequestMethod.GET)
     public String getLineUserList(Model model) {
-        UserDTO loginUserDTO = approveService.getUser(3);     // olaf
+        User loginUser = CurrentUser.getCurrentUser();
+        UserDTO loginUserDTO = approveService.getUser(loginUser.getUid());
         List <UserDTO> userDTOList = approveService.getUserListExceptLoginUser(loginUserDTO);
 
         model.addAttribute("userDTOList", userDTOList);
@@ -58,7 +61,8 @@ public class EappController {
 
     @RequestMapping(value = "/paper/waitList", method = RequestMethod.GET)
     public String viewWaitList(Model model) {
-        UserDTO loginUserDTO = approveService.getUser(1);     // anna
+        User loginUser = CurrentUser.getCurrentUser();
+        UserDTO loginUserDTO = approveService.getUser(loginUser.getUid());
         List<EappPaperDTO> waitPaperDTOList = approveService.getWaitPaperList(loginUserDTO);    //TODO: resultPaperDTOList
 
         model.addAttribute("waitPaperDTOList", waitPaperDTOList);   //TODO: paperDTOList
@@ -69,7 +73,8 @@ public class EappController {
 
     @RequestMapping(value = "/paper/view", method = RequestMethod.POST)
     public String viewPaper(@ModelAttribute EappPaperDTO eappPaperDTO, Model model) {
-        UserDTO loginUserDTO = approveService.getUser(1);     // anna
+        User loginUser = CurrentUser.getCurrentUser();
+        UserDTO loginUserDTO = approveService.getUser(loginUser.getUid());
         EappPaperDTO resultPaperDTO = approveService.getViewPaper(eappPaperDTO);
         model.addAttribute("paperDTO", resultPaperDTO);
         model.addAttribute("eappApproveDTO", new EappApproveDTO());
@@ -80,7 +85,8 @@ public class EappController {
     // TODO: 결재처리 "/paper/approve"
     @RequestMapping(value = "/paper/approve", method = RequestMethod.POST)
     public String approvePaper(@ModelAttribute EappApproveDTO eappApproveDTO, Model model) {
-        UserDTO loginUserDTO = approveService.getUser(1);     // anna
+        User loginUser = CurrentUser.getCurrentUser();
+        UserDTO loginUserDTO = approveService.getUser(loginUser.getUid());
         approveService.approvePaper(eappApproveDTO, loginUserDTO);   // TODO: exception / message 보완
 
 

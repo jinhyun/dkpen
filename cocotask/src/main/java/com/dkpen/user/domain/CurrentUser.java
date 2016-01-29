@@ -2,6 +2,7 @@ package com.dkpen.user.domain;
 
 import com.dkpen.eapproval.domain.User;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 public class CurrentUser extends org.springframework.security.core.userdetails.User {
     private User user;
@@ -21,5 +22,11 @@ public class CurrentUser extends org.springframework.security.core.userdetails.U
 
     public Role getRole() {
         return user.getRole();
+    }
+
+    public static User getCurrentUser() {
+        CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return currentUser.user;
     }
 }
