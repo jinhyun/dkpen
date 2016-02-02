@@ -1,15 +1,11 @@
 package com.dkpen.eapproval.service;
 
-import com.dkpen.eapproval.domain.EappLine;
-import com.dkpen.eapproval.domain.EappPaper;
-import com.dkpen.eapproval.domain.User;
+import com.dkpen.eapproval.domain.*;
 import com.dkpen.eapproval.dto.EappApproveDTO;
 import com.dkpen.eapproval.dto.EappLineDTO;
 import com.dkpen.eapproval.dto.EappPaperDTO;
 import com.dkpen.eapproval.dto.UserDTO;
-import com.dkpen.eapproval.repository.EappLineRepository;
-import com.dkpen.eapproval.repository.EappPaperRepository;
-import com.dkpen.eapproval.repository.UserRepository;
+import com.dkpen.eapproval.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +26,12 @@ public class EappApproveService {
 
     @Autowired
     EappLineRepository lineRepository;
+
+    @Autowired
+    EappArchiveLineRepository archiveLineRepository;
+
+    @Autowired
+    EappArchivePaperRepository archivePaperRepository;
 
     public String registerPaper(EappPaperDTO eappPaperDTO) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -150,8 +152,52 @@ public class EappApproveService {
                     nextEappLine.setApproveStatus(EappLineDTO.APPROVE_STATUS_READY);
                 }
 
+                // TODO: 추후 결재자 클래스로 변경
+                // 최종 결재자 결재처리: 저장소로 저장
+                if (resultLineDTOList.size() == i+1) {
+                    System.out.println("Last Approver-Done :: Save Archive");
+                    saveArchive(eappApproveDTO);
+                }
+
                 break;
             }
         }
+    }
+
+    /**
+     * 결재문서를 저장소로 저장
+     * @param eappApproveDTO
+     */
+    public void saveArchive(EappApproveDTO eappApproveDTO) {
+        long paperUid = eappApproveDTO.getPaperUid();
+
+        EappPaper paper = paperRepository.findOne(paperUid);
+        List<EappLine> lineList = lineRepository.findByEappPaper(paper);
+
+        EappArchivePaper archivePaper = new EappArchivePaper();
+        List<EappArchiveLine> archiveLineList = new ArrayList<EappArchiveLine>();
+
+        archivePaper.setContent(paper.getContent());
+        archivePaper.setRegDate(paper.getRegDate());
+        archivePaper.setRegUserName(paper.getRegUserName());
+        archivePaper.setSubject(paper.getSubject());
+        archivePaper.setUid(paper.getUid());
+
+        for (EappLine eappLine : lineList) {
+            EappArchiveLine archiveLine = new EappArchiveLine();
+            archiveLine.setApproveStatus(eappLine.getApproveStatus());
+            archiveLine.setLineOrder(eappLine.getLineOrder());
+            archiveLine.setUid(eappLine.getUid());
+            archiveLine.setUser(eappLine.getUser());
+            archiveLine.setUserName(eappLine.getUserName());
+
+            archiveLine.setEappPaper(archivePaper);
+
+            archiveLineList.add(archiveLine);
+        }
+
+        archivePaper.setEappArchiveLineList(archiveLineList);
+
+        archivePaperRepository.save(archivePaper);
     }
 }
