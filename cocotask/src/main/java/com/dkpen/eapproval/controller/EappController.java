@@ -2,16 +2,19 @@ package com.dkpen.eapproval.controller;
 
 import com.dkpen.eapproval.domain.User;
 import com.dkpen.eapproval.dto.EappApproveDTO;
+import com.dkpen.eapproval.dto.EappArchivePaperDTO;
 import com.dkpen.eapproval.dto.EappPaperDTO;
 import com.dkpen.eapproval.dto.UserDTO;
 import com.dkpen.eapproval.service.EappApproveService;
 import com.dkpen.user.domain.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -72,12 +75,13 @@ public class EappController {
     }
 
     @RequestMapping(value = "/paper/view", method = RequestMethod.POST)
-    public String viewPaper(@ModelAttribute EappPaperDTO eappPaperDTO, Model model) {
+    public String viewPaper(@ModelAttribute EappPaperDTO eappPaperDTO, Model model, @RequestParam String moduleName) {
         User loginUser = CurrentUser.getCurrentUser();
         UserDTO loginUserDTO = approveService.getUser(loginUser.getUid());
         EappPaperDTO resultPaperDTO = approveService.getViewPaper(eappPaperDTO);
         model.addAttribute("paperDTO", resultPaperDTO);
         model.addAttribute("eappApproveDTO", new EappApproveDTO());
+        model.addAttribute("moduleName", moduleName);
 
         return "eapproval/eappPaperForm";
     }
@@ -97,4 +101,21 @@ public class EappController {
     }
 
     // TODO: 결재문서 수정 "/paper/edit"
+
+    /**
+     * 저장소 결재완료 문서 조회
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/archive/list", method = RequestMethod.GET)
+    public String viewArchiveList(Model model) {
+        UserDTO loginUserDTO = CurrentUser.getCurrentUserDTO();
+        List<EappArchivePaperDTO> archivePaperDTOList = approveService.getArchivePaper(loginUserDTO);
+
+        model.addAttribute("waitPaperDTOList", archivePaperDTOList);    // TODO: eappPaperWaitList와 통합하거나 다른 방법으로 변경
+        model.addAttribute("eappPaperDTO", new EappPaperDTO());
+        model.addAttribute("moduleName", "archive");    // TODO: enum으로 변경
+
+        return "eapproval/eappArchiveList";
+    }
 }

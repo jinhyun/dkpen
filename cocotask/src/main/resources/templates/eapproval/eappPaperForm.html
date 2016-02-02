@@ -34,9 +34,11 @@
                 <div class="container">
                     <input type="hidden" id="approveStatus" th:field="${eappApproveDTO.approveStatus}"/>
                     <input type="hidden" id="paperUid" th:field="*{paperUid}"/>
+                    <input type="hidden" id="moduleName" th:value="${moduleName}"/>
 
                     <div class="form-group btn-group" role="group">
-                        <input type="button" class="btn btn-info btn-sm" value="결재" data-toggle="modal" data-target="#eappApproveModal"/>
+                        <input type="button" class="btn btn-info btn-sm" value="결재" data-toggle="modal" data-target="#eappApproveModal"
+                                id="eappApproveModalBtn" name="eappApproveModalBtn"/>
                     </div>
 
                     <!-- Modal -->
@@ -91,7 +93,7 @@
 
 <script type="text/javascript">
     (function() {
-        setEappLineType();
+        fnPaperFormInit();
     })();
 </script>
 </body>

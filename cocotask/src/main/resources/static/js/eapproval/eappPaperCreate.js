@@ -60,3 +60,16 @@ var setEappLineType = function() {
     $("#eappLineType_" + i).text(lineType);
   }
 };
+
+var fnPaperFormInit = function() {
+  setEappLineType();
+  setIfArchiveModule();
+};
+
+var setIfArchiveModule = function() {
+  var moduleName = $("#moduleName").val();
+
+  if (moduleName == "archive") {
+    $("#eappApproveModalBtn").remove();
+  }
+};

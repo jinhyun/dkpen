@@ -1,10 +1,7 @@
 package com.dkpen.eapproval.service;
 
 import com.dkpen.eapproval.domain.*;
-import com.dkpen.eapproval.dto.EappApproveDTO;
-import com.dkpen.eapproval.dto.EappLineDTO;
-import com.dkpen.eapproval.dto.EappPaperDTO;
-import com.dkpen.eapproval.dto.UserDTO;
+import com.dkpen.eapproval.dto.*;
 import com.dkpen.eapproval.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -199,5 +196,12 @@ public class EappApproveService {
         archivePaper.setEappArchiveLineList(archiveLineList);
 
         archivePaperRepository.save(archivePaper);
+    }
+
+    /**
+     * 저장소 결재완료 문서 조회
+     */
+    public List<EappArchivePaperDTO> getArchivePaper(UserDTO userDTO) {
+        return archivePaperRepository.searchPaperList(userRepository.findOne(userDTO.getUid()));
     }
 }

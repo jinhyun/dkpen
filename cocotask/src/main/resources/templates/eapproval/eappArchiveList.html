@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>E-Approval</title>
+    <!-- css -->
+    <link type="text/css" rel="stylesheet" href="/cocotask/webjars/bootstrap/3.3.5/css/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="/cocotask/static/css/layout.css"/>
+
+    <!-- javascript library -->
+    <script type="text/javascript" src="/cocotask/webjars/jquery/2.1.4/jquery.min.js"/>
+    <script type="text/javascript" src="/cocotask/webjars/bootstrap/3.3.5/js/bootstrap.min.js"/>
+
+    <!-- javascript module -->
+    <script type="text/javascript" src="/cocotask/static/js/eapproval/eappPaperWaitList.js"/>
+
+    <title>Cocotask - 결재완료</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row content">
+            <div th:replace="eapproval/eappLeft :: eappLeft"></div>
+
+            <div id="eappContents" class="col-sm-9">
+                <h4>결재완료</h4>
+                <div class="container">
+                    <form id="paperWaitListForm" name="paperWaitListForm" th:object="${eappPaperDTO}">
+                        <input type="hidden" id="selectedPaperUid" th:field="*{paperUid}"/>
+                        <input type="hidden" id="moduleName" th:value="${moduleName}"/>
+
+                        <table class="table table-hover" id="userListTable">
+                            <thead>
+                            <tr>
+                                <th>uid</th>
+                                <th>제목</th>
+                                <th>내용</th>
+                                <th>등록자</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="waitPaperDTO: ${waitPaperDTOList}" onclick="goToViewPaper(this);">
+                                <td id="paperUid" th:text="${waitPaperDTO.paperUid}"/>
+                                <td id="paperSubject" th:text="${waitPaperDTO.paperSubject}"/>
+                                <td id="paperContent" th:text="${waitPaperDTO.paperContent}"/>
+                                <td id="paperRegUserName" th:text="${waitPaperDTO.paperRegUserName}"/>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
