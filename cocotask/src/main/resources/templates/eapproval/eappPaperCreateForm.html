@@ -9,8 +9,10 @@
     <!-- javascript library -->
     <script type="text/javascript" src="/cocotask/webjars/jquery/2.1.4/jquery.min.js"/>
     <script type="text/javascript" src="/cocotask/webjars/bootstrap/3.3.5/js/bootstrap.min.js"/>
+    <script type="text/javascript" src="/cocotask/static/js/editor/ckeditor/ckeditor.js"/>
 
     <!-- javascript module -->
+    <script type="text/javascript" src="/cocotask/static/js/eapproval/eappEditor.js"/>
     <script type="text/javascript" src="/cocotask/static/js/eapproval/eappPaperCreate.js"/>
     <script type="text/javascript" src="/cocotask/static/js/util/RowSorter.js"/>
 
@@ -31,7 +33,7 @@
         <div id="eappContents" class="col-sm-9">
             <h4>결재문서 작성</h4>
 
-            <form id="paperForm" action="#" th:action="@{/eapp/paper/create}" th:object="${eappPaperDTO}"
+            <form id="paperForm" name="paperForm" action="#" th:action="@{/eapp/paper/create}" th:object="${eappPaperDTO}"
                   method="post" role="form" class="bs-example bs-example-form">
                 <div class="container">
                     <div class="form-group btn-group" role="group">
@@ -71,10 +73,12 @@
                         <input type="text" th:field="*{paperSubject}" class="form-control" placeholder="제목을 입력하세요" />
                     </div>
 
-                    <div class="form-group input-group input-group-sm col-lg-3">
+                    <!--<div class="form-group input-group input-group-sm col-lg-3">
                         <span class="input-group-addon">내용</span>
-                        <input type="text" th:field="*{paperContent}" class="form-control" placeholder="내용을 입력하세요 (Editor)" />
-                    </div>
+                        <textarea th:field="*{paperContent}" class="form-control" placeholder="내용을 입력하세요 (Editor)">
+
+                        </textarea>
+                    </div>-->
 
                     <div class="form-group input-group input-group-sm col-sm-3">
                         <span class="input-group-addon">결재선</span>
@@ -104,8 +108,14 @@
                         </div>-->
                     </div>
 
+                    <div>
+                        <textarea th:field="*{paperContent}" name="editor1" id="editor1" rows="5" cols="40">
+                            replaced CKEditor
+                        </textarea>
+                    </div>
+
                     <div class="form-group input-group input-group-sm">
-                        <input type="submit" value="작성" class="btn btn-default btn-sm"/>
+                        <input type="button" id="registerPaper" value="작성" class="btn btn-default btn-sm"/>
                         <input type="reset" value="초기화" class="btn btn-default btn-sm"/>
                     </div>
                 </div>
@@ -115,5 +125,13 @@
 </div>
 
 <div th:replace="fragments/footer :: footer"></div>
+
+<script type="text/javascript">
+    (function(){
+        eappPaperCreateInit();
+        editorInit();
+    })();
+</script>
+
 </body>
 </html>

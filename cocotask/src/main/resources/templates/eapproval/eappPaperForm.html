@@ -15,8 +15,10 @@
     <!-- javascript library -->
     <script type="text/javascript" src="/cocotask/webjars/jquery/2.1.4/jquery.min.js"/>
     <script type="text/javascript" src="/cocotask/webjars/bootstrap/3.3.5/js/bootstrap.min.js"/>
+    <script type="text/javascript" src="/cocotask/static/js/editor/ckeditor/ckeditor.js"/>
 
     <!-- javascript module -->
+    <script type="text/javascript" src="/cocotask/static/js/eapproval/eappEditor.js"/>
     <script type="text/javascript" src="/cocotask/static/js/eapproval/eappPaperCreate.js"/>
     <script type="text/javascript" src="/cocotask/static/js/eapproval/eappApprove.js"/>
 
@@ -69,10 +71,10 @@
                         <input type="text" th:field="*{paperSubject}" class="form-control" readonly="readonly"/>
                     </div>
 
-                    <div class="form-group input-group input-group-sm col-lg-3">
+                   <!-- <div class="form-group input-group input-group-sm col-lg-3">
                         <span class="input-group-addon">내용</span>
                         <input type="text" th:field="*{paperContent}" class="form-control" readonly="readonly"/>
-                    </div>
+                    </div>-->
 
                     <div class="form-group input-group input-group-sm col-sm-3">
                         <span class="input-group-addon">결재선</span>
@@ -82,6 +84,12 @@
                             <input type="hidden" th:id="lineOrder_+${lineDTOStat.index}" th:value="${lineDTO.lineOrder}"/>
                             <span th:id="eappLineType_+${lineDTOStat.index}" class="input-group-addon"></span>
                         </div>
+                    </div>
+
+                    <div>
+                        <textarea th:field="*{paperContent}" name="editor1" id="editor1" rows="5" cols="40" class="hidden">
+
+                        </textarea>
                     </div>
                 </div>
             </form>

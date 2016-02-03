@@ -14,7 +14,8 @@ public class EappPaper {
     @Column(name = "PAPER_SUBJECT")
     private String subject;
 
-    @Column(name = "PAPER_CONTENT")
+    @Lob
+    @Column( length = 100000 )
     private String content;
 
     @Column(name = "PAPER_REG_DATE")

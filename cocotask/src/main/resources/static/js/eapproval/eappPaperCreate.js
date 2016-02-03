@@ -1,3 +1,15 @@
+var eappPaperCreateInit = function() {
+  $("#registerPaper").click(function() {
+    var form = document.paperForm;
+    form.action = "/cocotask/eapp/paper/create";
+    form.submit();
+  });
+};
+
+/*var setEditorContents = function() {
+  var data = CKEDITOR.instances.editor1.getData();
+};*/
+
 var searchEappLiner = function() {
   var url = "/cocotask/eapp/line/userList";
   $("#resultUserList").load(url);
@@ -64,6 +76,10 @@ var setEappLineType = function() {
 var fnPaperFormInit = function() {
   setEappLineType();
   setIfArchiveModule();
+
+  // editor
+  editorInit();
+  editorReadOnly();
 };
 
 var setIfArchiveModule = function() {
