@@ -8,6 +8,13 @@ public class EappLineDTO {
     public static final String APPROVE_STATUS_NONE = "none";
     public static final String APPROVE_STATUS_DONE = "done";
 
+    public static final String APPROVE_STATUS_HOLD = "hold";
+    public static final String APPROVE_STATUS_WITHDRAW = "withdraw";
+    public static final String APPROVE_STATUS_REJECT = "reject";
+
+    public static final String PAPER_POSITION_HERE = "here";
+    public static final String PAPER_POSITION_NONE = "none";
+
     private long lineUid;
     private String lineUserName;
     private int lineOrder;
@@ -15,6 +22,15 @@ public class EappLineDTO {
     private UserDTO userDTO;
     private long userUid;
     private EappPaperDTO eappPaperDTO;
+    private String positionPaper;
+
+    public String getPositionPaper() {
+        return positionPaper;
+    }
+
+    public void setPositionPaper(String positionPaper) {
+        this.positionPaper = positionPaper;
+    }
 
     public long getUserUid() {
         return userUid;

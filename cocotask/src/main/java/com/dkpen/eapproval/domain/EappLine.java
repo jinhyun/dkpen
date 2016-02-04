@@ -26,6 +26,17 @@ public class EappLine {
     @Column(name = "APPROVE_STATUS")
     private String approveStatus;
 
+    @Column(name = "POSITION_PAPER")
+    private String positionPaper;
+
+    public String getPositionPaper() {
+        return positionPaper;
+    }
+
+    public void setPositionPaper(String positionPaper) {
+        this.positionPaper = positionPaper;
+    }
+
     public String getApproveStatus() {
         return approveStatus;
     }
