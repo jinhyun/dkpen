@@ -136,37 +136,67 @@ public class EappApproveService {
     // TODO: 변수명 수정
     public void approvePaper(EappApproveDTO eappApproveDTO, UserDTO loginUserDTO) {
         List<EappLineDTO> resultLineDTOList = lineRepository.searchLine(eappApproveDTO.getPaperUid());
+        long loginUserUid = loginUserDTO.getUid();
 
         for (int i = 0; i < resultLineDTOList.size(); i++){
             EappLineDTO eappLineDTO = resultLineDTOList.get(i);
-            String approveStatus = eappLineDTO.getApproveStatus();
-            long userUid = eappLineDTO.getUserUid();
+            long lineUid = eappLineDTO.getLineUid();
+            long lineUserUid = eappLineDTO.getUserUid();
 
-            if (eappLineDTO.getPositionPaper().equals(EappLineDTO.PAPER_POSITION_HERE)
-                    && userUid == loginUserDTO.getUid()) {
-                EappLine eappLine = lineRepository.findOne(eappLineDTO.getLineUid());
-                eappLine.setApproveStatus(eappApproveDTO.getApproveStatus());
-                eappLine.setPositionPaper(eappLineDTO.PAPER_POSITION_NONE);
+            String approveStatus = eappApproveDTO.getApproveStatus();
+            String positionPaper = eappLineDTO.getPositionPaper();
 
-                //TODO: lineOrder로 정렬되어있다는 전제 (보완)
-                // 다음 결재자 설정
-                if(resultLineDTOList.size() != i+1) {
-                    EappLineDTO nextEappLineDTO = resultLineDTOList.get(i+1);
-                    EappLine nextEappLine = lineRepository.findOne(nextEappLineDTO.getLineUid());
-                    nextEappLine.setApproveStatus(EappLineDTO.APPROVE_STATUS_READY);
-                    nextEappLine.setPositionPaper(EappLineDTO.PAPER_POSITION_HERE);
-                }
+            if (positionPaper.equals(EappLineDTO.PAPER_POSITION_HERE) && lineUserUid == loginUserUid) {
+                // TODO: 결재자 구분 컬럼 생성후(결재자 클래스) 제어 & refactor
+                // 반려: 작성자에게 전달
+                if (approveStatus.equals(EappLineDTO.APPROVE_STATUS_REJECT)) {
+                    EappLine currentEappLine = lineRepository.findOne(lineUid);
+                    currentEappLine.setApproveStatus(approveStatus);
+                    currentEappLine.setPositionPaper(eappLineDTO.PAPER_POSITION_NONE);
 
-                // TODO: 추후 결재자 클래스로 변경
-                // 최종 결재자 결재처리: 저장소로 저장
-                if (resultLineDTOList.size() == i+1) {
-                    System.out.println("Last Approver-Done :: Save Archive");
-                    saveArchive(eappApproveDTO);
+                    EappLineDTO draftEappLineDTO = resultLineDTOList.get(0);
+                    EappLine draftEappLine = lineRepository.findOne(draftEappLineDTO.getLineUid());
+                    draftEappLine.setPositionPaper(EappLineDTO.PAPER_POSITION_HERE);
+
+                // 보류
+                } else if (approveStatus.equals(EappLineDTO.APPROVE_STATUS_HOLD)) {
+                    EappLine holdEappLine = lineRepository.findOne(lineUid);
+                    holdEappLine.setApproveStatus(approveStatus);
+                    holdEappLine.setPositionPaper(EappLineDTO.PAPER_POSITION_HERE);
+
+                } else {
+                    // 결재
+                    EappLine currentEappLine = lineRepository.findOne(lineUid);
+                    currentEappLine.setApproveStatus(approveStatus);
+                    currentEappLine.setPositionPaper(eappLineDTO.PAPER_POSITION_NONE);
+
+                    // 다음 결재자에게 전달
+                    sendNextLine(resultLineDTOList, i);
+
+                    // 최종 결재자 결재처리: 저장소로 저장
+                    if (resultLineDTOList.size() == i+1) {
+                        System.out.println("Last Approver-Done :: Save Archive");
+                        saveArchive(eappApproveDTO);
+                    }
                 }
 
                 break;
             }
         }
+    }
+
+    /**
+     * 다음 결재자에게 전달
+     * @param lineList
+     * @param currentIdx
+     */
+    public void sendNextLine(List<EappLineDTO> lineList, int currentIdx) {
+        if (lineList.size() != currentIdx + 1) {
+            EappLineDTO nextEappLineDTO = lineList.get(currentIdx + 1);
+            EappLine nextEappLine = lineRepository.findOne(nextEappLineDTO.getLineUid());
+            nextEappLine.setPositionPaper(EappLineDTO.PAPER_POSITION_HERE);
+        }
+
     }
 
     /**
