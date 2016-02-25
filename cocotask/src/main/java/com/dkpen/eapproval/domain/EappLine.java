@@ -26,11 +26,22 @@ public class EappLine {
     @Column(name = "APPROVE_STATUS")
     private String approveStatus;
 
+    @Column(name = "PAPER_STATUS")
+    private String paperStatus;
+
     @Column(name = "POSITION_PAPER")
     private String positionPaper;
 
     public String getPositionPaper() {
         return positionPaper;
+    }
+
+    public String getPaperStatus() {
+        return paperStatus;
+    }
+
+    public void setPaperStatus(String paperStatus) {
+        this.paperStatus = paperStatus;
     }
 
     public void setPositionPaper(String positionPaper) {

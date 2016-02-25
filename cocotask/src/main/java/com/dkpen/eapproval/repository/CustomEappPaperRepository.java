@@ -7,5 +7,7 @@ import java.util.List;
 public interface CustomEappPaperRepository {
     List<EappPaperDTO> searchWaitPaperList(User user, String positionPaper);
 
+    List<EappPaperDTO> searchProgressPaperList(User user, String paperStatusProgress);
+
     EappPaperDTO searchPaper(long paperUid);
 }

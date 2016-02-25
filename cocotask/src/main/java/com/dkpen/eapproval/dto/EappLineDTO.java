@@ -1,16 +1,15 @@
 package com.dkpen.eapproval.dto;
 
-import com.dkpen.eapproval.domain.User;
-
 public class EappLineDTO {
     public static final String APPROVE_STATUS_DRAFT = "draft";
-    public static final String APPROVE_STATUS_READY = "ready";
     public static final String APPROVE_STATUS_NONE = "none";
     public static final String APPROVE_STATUS_DONE = "done";
-
     public static final String APPROVE_STATUS_HOLD = "hold";
     public static final String APPROVE_STATUS_WITHDRAW = "withdraw";
     public static final String APPROVE_STATUS_REJECT = "reject";
+
+    public static final String PAPER_STATUS_PROGRESS = "progress";
+    public static final String PAPER_STATUS_DONE = "done";
 
     public static final String PAPER_POSITION_HERE = "here";
     public static final String PAPER_POSITION_NONE = "none";

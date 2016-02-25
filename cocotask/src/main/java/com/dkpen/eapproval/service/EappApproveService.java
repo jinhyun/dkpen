@@ -46,6 +46,7 @@ public class EappApproveService {
             User user = userRepository.findOne(userUid);
             String approveStatus;
             String positionPaper;
+            String paperStatus = EappLineDTO.PAPER_STATUS_PROGRESS;
 
             // TODO: 보완
             if (i == 0) {
@@ -53,7 +54,7 @@ public class EappApproveService {
                 approveStatus = EappLineDTO.APPROVE_STATUS_DRAFT;
                 positionPaper = EappLineDTO.PAPER_POSITION_NONE;
             } else if (i == 1) {
-                approveStatus = EappLineDTO.APPROVE_STATUS_READY;
+                approveStatus = EappLineDTO.APPROVE_STATUS_NONE;
                 positionPaper = EappLineDTO.PAPER_POSITION_HERE;
             } else {
                 approveStatus = EappLineDTO.APPROVE_STATUS_NONE;
@@ -66,6 +67,7 @@ public class EappApproveService {
             line.setLineOrder(i);
             line.setApproveStatus(approveStatus);
             line.setPositionPaper(positionPaper);
+            line.setPaperStatus(paperStatus);
 
             lineList.add(line);
         }
@@ -119,6 +121,17 @@ public class EappApproveService {
         return waitPaperDTOList;
     }
 
+    public List<EappPaperDTO> getProgressPaperList(UserDTO userDTO) {
+        User user = new User();
+        user.setUid(userDTO.getUid());
+        user.setEmail(userDTO.getEmail());
+        user.setName(userDTO.getName());
+
+        List<EappPaperDTO> progressPaperDTOList = paperRepository.searchProgressPaperList(user, EappLineDTO.PAPER_STATUS_PROGRESS);
+
+        return progressPaperDTOList;
+    }
+
     public EappPaperDTO getViewPaper(EappPaperDTO eappPaperDTO) {
         EappPaperDTO paperDTO = getPaperLine(eappPaperDTO.getPaperUid());
 
@@ -152,7 +165,7 @@ public class EappApproveService {
                 if (approveStatus.equals(EappLineDTO.APPROVE_STATUS_REJECT)) {
                     EappLine currentEappLine = lineRepository.findOne(lineUid);
                     currentEappLine.setApproveStatus(approveStatus);
-                    currentEappLine.setPositionPaper(eappLineDTO.PAPER_POSITION_NONE);
+                    currentEappLine.setPositionPaper(EappLineDTO.PAPER_POSITION_NONE);
 
                     EappLineDTO draftEappLineDTO = resultLineDTOList.get(0);
                     EappLine draftEappLine = lineRepository.findOne(draftEappLineDTO.getLineUid());
@@ -164,20 +177,31 @@ public class EappApproveService {
                     holdEappLine.setApproveStatus(approveStatus);
                     holdEappLine.setPositionPaper(EappLineDTO.PAPER_POSITION_HERE);
 
-                } else {
-                    // 결재
+                // 결재
+                } else if (approveStatus.equals(EappLineDTO.APPROVE_STATUS_DONE)) {
                     EappLine currentEappLine = lineRepository.findOne(lineUid);
                     currentEappLine.setApproveStatus(approveStatus);
-                    currentEappLine.setPositionPaper(eappLineDTO.PAPER_POSITION_NONE);
+                    currentEappLine.setPositionPaper(EappLineDTO.PAPER_POSITION_NONE);
 
                     // 다음 결재자에게 전달
                     sendNextLine(resultLineDTOList, i);
 
                     // 최종 결재자 결재처리: 저장소로 저장
                     if (resultLineDTOList.size() == i+1) {
+                        EappPaper eappPaper = paperRepository.findOne(eappApproveDTO.getPaperUid());
+                        List<EappLine> eappLineList = lineRepository.findByEappPaper(eappPaper);
+
+                        for (EappLine eappLine : eappLineList) {
+                            eappLine.setPaperStatus(EappLineDTO.PAPER_STATUS_DONE);
+                            lineRepository.saveAndFlush(eappLine);
+                        }
+
                         System.out.println("Last Approver-Done :: Save Archive");
                         saveArchive(eappApproveDTO);
                     }
+
+                } else {
+                    System.out.println("Exception");
                 }
 
                 break;

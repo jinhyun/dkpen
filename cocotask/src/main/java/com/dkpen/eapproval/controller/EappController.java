@@ -74,6 +74,23 @@ public class EappController {
         return "eapproval/eappPaperWaitList";
     }
 
+    /**
+     * 결재 진행
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/paper/progressList", method = RequestMethod.GET)
+    public String viewProgressList(Model model) {
+        User loginUser = CurrentUser.getCurrentUser();
+        UserDTO loginUserDTO = approveService.getUser(loginUser.getUid());
+        List<EappPaperDTO> progressPaperDTOList = approveService.getProgressPaperList(loginUserDTO);
+
+        model.addAttribute("progressPaperDTOList", progressPaperDTOList);   //TODO: paperDTOList
+        model.addAttribute("eappPaperDTO", new EappPaperDTO());
+
+        return "eapproval/eappPaperProgressList";
+    }
+
     @RequestMapping(value = "/paper/view", method = RequestMethod.POST)
     public String viewPaper(@ModelAttribute EappPaperDTO eappPaperDTO, Model model, @RequestParam String moduleName) {
         User loginUser = CurrentUser.getCurrentUser();

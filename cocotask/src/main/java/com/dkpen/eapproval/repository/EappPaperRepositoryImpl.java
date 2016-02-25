@@ -37,6 +37,27 @@ public class EappPaperRepositoryImpl implements CustomEappPaperRepository {
         return paperDTOList;
     }
 
+    // TODO: searchWaitPaperList 와 같이 사용할지는 고려중
+    @Override
+    public List<EappPaperDTO> searchProgressPaperList(User user, String paperStatusProgress) {
+        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+        QEappPaper qEappPaper = QEappPaper.eappPaper;
+        QEappLine qEappLine = QEappLine.eappLine;
+
+        List<EappPaperDTO> paperDTOList = queryFactory.selectFrom(qEappPaper)
+                .select(Projections.bean(EappPaperDTO.class,
+                        qEappPaper.uid.as("paperUid"),
+                        qEappPaper.subject.as("paperSubject"),
+                        qEappPaper.content.as("paperContent"),
+                        qEappPaper.regDate.as("paperRegDate"),
+                        qEappPaper.regUserName.as("paperRegUserName")))
+                .innerJoin(qEappPaper.EappLineList, qEappLine)
+                .where(qEappLine.user.eq(user), qEappLine.positionPaper.eq(paperStatusProgress))
+                .fetch();
+
+        return paperDTOList;
+    }
+
     @Override
     public EappPaperDTO searchPaper(long paperUid) {
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
