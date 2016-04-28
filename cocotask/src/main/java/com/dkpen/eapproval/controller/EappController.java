@@ -37,7 +37,14 @@ public class EappController {
 
     @RequestMapping(value = "/paper/create", method = RequestMethod.POST)
     public String registerPaper(@ModelAttribute EappPaperDTO eappPaperDTO, Model model) {
-        String result = approveService.registerPaper(eappPaperDTO);
+        long paperUid = approveService.registerPaper(eappPaperDTO);
+        String result;
+
+        if (paperUid > 0) {
+            result = "결재문서를 작성하였습니다.";
+        } else {
+            result = "실패하였습니다.";
+        }
 
         model.addAttribute("message", result);
         model.addAttribute("eappPaperDTO", new EappPaperDTO());
@@ -84,7 +91,9 @@ public class EappController {
         User loginUser = CurrentUser.getCurrentUser();
         UserDTO loginUserDTO = approveService.getUser(loginUser.getUid());
         List<EappPaperDTO> progressPaperDTOList = approveService.getProgressPaperList(loginUserDTO);
+        List<EappPaperDTO> waitPaperDTOList = approveService.getWaitPaperList(loginUserDTO);
 
+        model.addAttribute("waitPaperDTOList", waitPaperDTOList);
         model.addAttribute("progressPaperDTOList", progressPaperDTOList);   //TODO: paperDTOList
         model.addAttribute("eappPaperDTO", new EappPaperDTO());
 

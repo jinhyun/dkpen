@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>E-Approval</title>
+    <!-- css -->
+    <!--<link type="text/css" rel="stylesheet" href="/cocotask/webjars/bootstrap/3.3.5/css/bootstrap.css"/>-->
+    <!--<link type="text/css" rel="stylesheet" href="/cocotask/static/css/layout.css"/>-->
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"/>
+
+
+    <!-- javascript library -->
+    <!--<script type="text/javascript" src="/cocotask/webjars/jquery/2.1.4/jquery.min.js"/>-->
+    <!--<script type="text/javascript" src="/cocotask/webjars/bootstrap/3.3.5/js/bootstrap.min.js"/>-->
+
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <!-- javascript module -->
+    <!--<script type="text/javascript" src="/cocotask/static/js/eapproval/eappPaperWaitList.js"/>-->
+
+    <title>Cocotask - 결재문서(대기, 진행, 완료)</title>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row content">
+        <div th:replace="eapproval/eappLeft :: eappLeft"></div>
+
+        <div id="eappContents" class="col-sm-9">
+            <h4>결재문서</h4>
+            <div class="container">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">결재 대기</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-hover" id="userListTable">
+                            <thead>
+                            <tr>
+                                <th colspan="2">제목</th>
+                                <th>등록자</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="waitPaperDTO: ${waitPaperDTOList}" onclick="goToViewPaper(this);">
+                                <!--<td id="paperUid" th:text="${waitPaperDTO.paperUid}"/>-->
+                                <!--<td id="paperSubject" th:text="${waitPaperDTO.paperSubject}"/>-->
+                                <!--<td id="paperContent" th:text="${waitPaperDTO.paperContent}"/>-->
+                                <!--<td id="paperRegUserName" th:text="${waitPaperDTO.paperRegUserName}"/>-->
+
+                                <td style="width: 3px"><span class="glyphicon glyphicon-new-window"></span></td>
+                                <td>3월 휴가신청서</td>
+                                <td>홍길동</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="panel-body text-right"><a>더보기</a></div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">결재 진행</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-hover" id="userListTable">
+                            <thead>
+                            <tr>
+                                <th colspan="2">제목</th>
+                                <th>등록자</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr th:each="progressPaperDTO: ${progressPaperDTOList}" onclick="goToViewPaper(this);">
+                                <!--<td id="paperUid" th:text="${progressPaperDTO.paperUid}"/>-->
+                                <!--<td id="paperSubject" th:text="${progressPaperDTO.paperSubject}"/>-->
+                                <!--<td id="paperContent" th:text="${progressPaperDTO.paperContent}"/>-->
+                                <!--<td id="paperRegUserName" th:text="${progressPaperDTO.paperRegUserName}"/>-->
+
+                                <td style="width: 3px"><span class="glyphicon glyphicon-new-window"></span></td>
+                                <td>4월19일 업무보고서</td>
+                                <td>홍길동</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="panel-body text-right"><a>더보기</a></div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">결재 완료</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-hover" id="userListTable">
+                            <thead>
+                            <tr>
+                                <th colspan="2">제목</th>
+                                <th>등록자</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="archivePaperDTO: ${archivePaperDTOList}" onclick="goToViewPaper(this);">
+                                <!--<td id="paperUid" th:text="${archivePaperDTO.paperUid}"/>-->
+                                <!--<td id="paperSubject" th:text="${archivePaperDTO.paperSubject}"/>-->
+                                <!--<td id="paperContent" th:text="${archivePaperDTO.paperContent}"/>-->
+                                <!--<td id="paperRegUserName" th:text="${archivePaperDTO.paperRegUserName}"/>-->
+
+                                <td style="width: 3px"><span class="glyphicon glyphicon-new-window"></span></td>
+                                <td>4월15일 해외출장보고서</td>
+                                <td>크리스토퍼</td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 3px"><span class="glyphicon glyphicon-new-window"></span></td>
+                                <td>4월12일 영업팀 회식비 지출외 </td>
+                                <td>안나</td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 3px"><span class="glyphicon glyphicon-new-window"></span></td>
+                                <td>4월11일 결재사항 실시보고서 </td>
+                                <td>올라프</td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 3px"><span class="glyphicon glyphicon-new-window"></span></td>
+                                <td>4월14일 슈퍼마리오팀 화이팅 회식비 지출외</td>
+                                <td>마리오</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="panel-body text-right"><a>더보기</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

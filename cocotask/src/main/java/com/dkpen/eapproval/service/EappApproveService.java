@@ -30,7 +30,7 @@ public class EappApproveService {
     @Autowired
     EappArchivePaperRepository archivePaperRepository;
 
-    public String registerPaper(EappPaperDTO eappPaperDTO) {
+    public Long registerPaper(EappPaperDTO eappPaperDTO) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         EappPaper paper = new EappPaper();
         paper.setSubject(eappPaperDTO.getPaperSubject());
@@ -75,9 +75,9 @@ public class EappApproveService {
         paper.setRegUserName(drafter.getName());
         paper.setRegDate(sdf.format(new Date()));
         paper.setEappLineList(lineList);
-        paperRepository.save(paper);
+        EappPaper createdPaper = paperRepository.save(paper);
 
-        return "결재문서를 작성하였습니다.";
+        return createdPaper.getUid();
     }
 
     public List<UserDTO> getUserListExceptLoginUser(UserDTO loginUserDTO) {
@@ -127,7 +127,9 @@ public class EappApproveService {
         user.setEmail(userDTO.getEmail());
         user.setName(userDTO.getName());
 
-        List<EappPaperDTO> progressPaperDTOList = paperRepository.searchProgressPaperList(user, EappLineDTO.PAPER_STATUS_PROGRESS);
+        List<EappPaperDTO> progressPaperDTOList = paperRepository.searchProgressPaperList(user,
+                EappLineDTO.PAPER_STATUS_PROGRESS,
+                EappLineDTO.PAPER_POSITION_NONE);
 
         return progressPaperDTOList;
     }
@@ -148,6 +150,7 @@ public class EappApproveService {
 
     // TODO: 변수명 수정
     public void approvePaper(EappApproveDTO eappApproveDTO, UserDTO loginUserDTO) {
+        // TODO: 필수값 검증
         List<EappLineDTO> resultLineDTOList = lineRepository.searchLine(eappApproveDTO.getPaperUid());
         long loginUserUid = loginUserDTO.getUid();
 

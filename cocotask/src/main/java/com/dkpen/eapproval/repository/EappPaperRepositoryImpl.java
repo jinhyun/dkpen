@@ -39,7 +39,7 @@ public class EappPaperRepositoryImpl implements CustomEappPaperRepository {
 
     // TODO: searchWaitPaperList 와 같이 사용할지는 고려중
     @Override
-    public List<EappPaperDTO> searchProgressPaperList(User user, String paperStatusProgress) {
+    public List<EappPaperDTO> searchProgressPaperList(User user, String paperStatusProgress, String positionPaper) {
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
         QEappPaper qEappPaper = QEappPaper.eappPaper;
         QEappLine qEappLine = QEappLine.eappLine;
@@ -52,7 +52,9 @@ public class EappPaperRepositoryImpl implements CustomEappPaperRepository {
                         qEappPaper.regDate.as("paperRegDate"),
                         qEappPaper.regUserName.as("paperRegUserName")))
                 .innerJoin(qEappPaper.EappLineList, qEappLine)
-                .where(qEappLine.user.eq(user), qEappLine.positionPaper.eq(paperStatusProgress))
+                .where(qEappLine.user.eq(user),
+                        qEappLine.paperStatus.eq(paperStatusProgress),
+                        qEappLine.positionPaper.eq(positionPaper))
                 .fetch();
 
         return paperDTOList;
