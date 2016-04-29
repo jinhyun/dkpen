@@ -64,61 +64,68 @@ public class MockCreateService {
     }
 
     public void createPaperMock() {
-        // 결재진행
-        EappPaperDTO paper2 = new EappPaperDTO();
-        paper2.setPaperSubject("4월12일 휴가신청서");
-        paper2.setPaperContent("4박 5일 신청합니다.");
-        createPaper(paper2);
-        approvePaper(2L, paper2);
+        // user: elsa 기준
+        // 결재대기
+        EappPaperDTO paper1a = new EappPaperDTO();
+        paper1a.setPaperSubject("4월14일 슈퍼마리오팀 화이팅 회식비 지출외");
+        paper1a.setPaperContent("회식비 100,000원 등등");
+        createPaper(paper1a);
+
+        // 결재대기
+        EappPaperDTO paper1b = new EappPaperDTO();
+        paper1b.setPaperSubject("징계의결에 따른 교육안료 보고");
+        paper1b.setPaperContent("1. 관련근거 제5-6회 인사위원회 결과보고 \n 2.위 관련근거에 의거하여 실시한 성희롱예방교육의 이수 실적을 아래와 같이" +
+                "보고하오니 승인여 주시기 바랍니다");
+        createPaper(paper1b);
 
         // 결재진행
-        EappPaperDTO paper2a = new EappPaperDTO();
-        paper2a.setPaperSubject("8월22일 휴가신청서");
-        paper2a.setPaperContent("9박 9일 신청합니다.");
-        createPaper(paper2a);
-        approvePaper(2L, paper2a);
+        EappPaperDTO paper1 = new EappPaperDTO();
+        paper1.setPaperSubject("정책사례개발연구용역 소형과재 최종보고서 부처의견 수렴");
+        paper1.setPaperContent("정책사례개발추진단102(2007. 4. 12)등 과 관련됩니다");
+        createPaper(paper1);
+        approvePaper(2L, paper1);
 
         // 결재진행
         EappPaperDTO paper2b = new EappPaperDTO();
-        paper2b.setPaperSubject("4월14일 슈퍼마리오팀 화이팅 회식비 지출외");
-        paper2b.setPaperContent("회식비 100,000원 등등");
+        paper2b.setPaperSubject("4월15일 해외출장보고서");
+        paper2b.setPaperContent("제3차 포럼운영위원회 참석을 위하여 시행한 해외출장 결과를 아래와 같이 보고합니다.");
         createPaper(paper2b);
+        approvePaper(2L, paper2b);
 
         // 결재완료
-        EappPaperDTO paper1 = new EappPaperDTO();
-        paper1.setPaperSubject("4월10일 휴가신청서");
-        paper1.setPaperContent("1박 2일 신청합니다.");
-
-        createPaper(paper1);
-        approveDonePaper(paper1);
-
-        // 결재완료
-        EappPaperDTO paper3 = new EappPaperDTO();
-        paper3.setPaperSubject("4월20일 휴가신청서");
-        paper3.setPaperContent("2박 3일 신청합니다.");
-        createPaper(paper3);
-        approveDonePaper(paper3);
+        EappPaperDTO paper1c = new EappPaperDTO();
+        paper1c.setPaperSubject("4월10일 휴가신청서");
+        paper1c.setPaperContent("1박 2일 신청합니다.");
+        createPaper(paper1c);
+        approveDonePaper(paper1c);
 
         // 결재완료
-        EappPaperDTO paper4 = new EappPaperDTO();
-        paper4.setPaperSubject("4월31일 휴가신청서");
-        paper4.setPaperContent("7박 8일 신청합니다.");
-        createPaper(paper4);
-        approveDonePaper(paper4);
+        EappPaperDTO paper2c = new EappPaperDTO();
+        paper2c.setPaperSubject("3월 19일 자금결재 기안서");
+        paper2c.setPaperContent("거래은행명: 한국은행\n 결재금액: 1,000,000원");
+        createPaper(paper2c);
+        approveDonePaper(paper2c);
 
         // 결재완료
-        EappPaperDTO paper5 = new EappPaperDTO();
-        paper5.setPaperSubject("2월11일 휴가신청서");
-        paper5.setPaperContent("3박 5일 신청합니다.");
+        EappPaperDTO paper3c = new EappPaperDTO();
+        paper3c.setPaperSubject("사전검토 회의결과 보고");
+        paper3c.setPaperContent("사전검도 신청에 대하여 의약품 사전검도 운영지침에 따라 사전검토 회의를 개최하고 그 결과를 다음과 같이 보고합니다");
+        createPaper(paper3c);
+        approveDonePaper(paper3c);
+
+        // 결재완료
+        EappPaperDTO paper4c = new EappPaperDTO();
+        paper4c.setPaperSubject("2월11일 휴가신청서");
+        paper4c.setPaperContent("3박 5일 신청합니다.");
 
         List<Long> userUidList = new ArrayList<Long>();
         userUidList.add(2L);
         userUidList.add(3L);
         userUidList.add(4L);
-        paper5.setPaperUserUidList(userUidList);
+        paper4c.setPaperUserUidList(userUidList);
 
-        createPaper(paper5);
-        approveDonePaper(paper5);
+        createPaper(paper4c);
+        approveDonePaper(paper4c);
     }
 
     public EappPaperDTO createPaper(EappPaperDTO paperDTO) {

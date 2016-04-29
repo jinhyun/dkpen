@@ -266,7 +266,7 @@ public class EappApproveService {
     /**
      * 저장소 결재완료 문서 조회
      */
-    public List<EappArchivePaperDTO> getArchivePaper(UserDTO userDTO) {
+    public List<EappArchivePaperDTO> getArchivePaperList(UserDTO userDTO) {
         return archivePaperRepository.searchPaperList(userRepository.findOne(userDTO.getUid()));
     }
 }

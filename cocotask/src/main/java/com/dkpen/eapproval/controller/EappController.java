@@ -8,7 +8,6 @@ import com.dkpen.eapproval.dto.UserDTO;
 import com.dkpen.eapproval.service.EappApproveService;
 import com.dkpen.user.domain.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -90,11 +89,14 @@ public class EappController {
     public String viewProgressList(Model model) {
         User loginUser = CurrentUser.getCurrentUser();
         UserDTO loginUserDTO = approveService.getUser(loginUser.getUid());
-        List<EappPaperDTO> progressPaperDTOList = approveService.getProgressPaperList(loginUserDTO);
+
         List<EappPaperDTO> waitPaperDTOList = approveService.getWaitPaperList(loginUserDTO);
+        List<EappPaperDTO> progressPaperDTOList = approveService.getProgressPaperList(loginUserDTO);
+        List<EappArchivePaperDTO> archivePaperDTOList = approveService.getArchivePaperList(loginUserDTO);
 
         model.addAttribute("waitPaperDTOList", waitPaperDTOList);
-        model.addAttribute("progressPaperDTOList", progressPaperDTOList);   //TODO: paperDTOList
+        model.addAttribute("progressPaperDTOList", progressPaperDTOList);
+        model.addAttribute("archivePaperDTOList", archivePaperDTOList);
         model.addAttribute("eappPaperDTO", new EappPaperDTO());
 
         return "eapproval/eappPaperProgressList";
@@ -136,7 +138,7 @@ public class EappController {
     @RequestMapping(value = "/archive/list", method = RequestMethod.GET)
     public String viewArchiveList(Model model) {
         UserDTO loginUserDTO = CurrentUser.getCurrentUserDTO();
-        List<EappArchivePaperDTO> archivePaperDTOList = approveService.getArchivePaper(loginUserDTO);
+        List<EappArchivePaperDTO> archivePaperDTOList = approveService.getArchivePaperList(loginUserDTO);
 
         model.addAttribute("waitPaperDTOList", archivePaperDTOList);    // TODO: eappPaperWaitList와 통합하거나 다른 방법으로 변경
         model.addAttribute("eappPaperDTO", new EappPaperDTO());
