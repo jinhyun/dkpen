@@ -26,7 +26,8 @@
             <div class="container">
                 <form id="paperWaitListForm" name="paperWaitListForm" th:object="${eappPaperDTO}">
                     <!-- hidden 사용하지 말라고 했었는데..이유 및 방법 찾기 -->
-                    <input type="hidden" id="selectedPaperUid" th:field="*{paperUid}"/>
+                    <!--<input type="hidden" id="selectedPaperUid" th:field="*{paperUid}"/>-->
+                    <input type="hidden" id="moduleName" th:field="*{moduleName}"/>
 
                     <table class="table table-hover" id="userListTable">
                         <thead>
@@ -38,7 +39,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="waitPaperDTO: ${waitPaperDTOList}" onclick="goToViewPaper(this);">
+                            <!--<tr th:each="waitPaperDTO: ${waitPaperDTOList}" onclick="goToViewPaper(this);">-->
+                            <tr th:each="waitPaperDTO: ${waitPaperDTOList}" th:onclick="'javascript:goToViewPaper('+${waitPaperDTO.paperUid}+');'">
                                 <td id="paperUid" th:text="${waitPaperDTO.paperUid}"/>
                                 <td id="paperSubject" th:text="${waitPaperDTO.paperSubject}"/>
                                 <td id="paperContent" th:text="${waitPaperDTO.paperContent}"/>

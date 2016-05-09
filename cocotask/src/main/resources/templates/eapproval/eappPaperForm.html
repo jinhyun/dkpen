@@ -31,6 +31,9 @@
 
         <div id="eappContents" class="col-sm-9">
             <h4>결재문서</h4>
+
+            <div th:fragment="resultsList" class="results-block">
+
             <form id="paperForm" name="paperForm" action="#" th:object="${paperDTO}"
                   method="post" role="form" class="bs-example bs-example-form">
                 <div class="container">
@@ -94,6 +97,7 @@
                     </div>
                 </div>
             </form>
+        </div>
         </div>
     </div>
 </div>

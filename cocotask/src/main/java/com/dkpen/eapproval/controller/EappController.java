@@ -10,11 +10,9 @@ import com.dkpen.user.domain.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -103,15 +101,19 @@ public class EappController {
     }
 
     @RequestMapping(value = "/paper/view", method = RequestMethod.POST)
-    public String viewPaper(@ModelAttribute EappPaperDTO eappPaperDTO, Model model, @RequestParam String moduleName) {
+    public String viewPaper(@ModelAttribute EappPaperDTO eappPaperDTO, Model model) {
         User loginUser = CurrentUser.getCurrentUser();
         UserDTO loginUserDTO = approveService.getUser(loginUser.getUid());
         EappPaperDTO resultPaperDTO = approveService.getViewPaper(eappPaperDTO);
         model.addAttribute("paperDTO", resultPaperDTO);
         model.addAttribute("eappApproveDTO", new EappApproveDTO());
-        model.addAttribute("moduleName", moduleName);
+        model.addAttribute("moduleName", eappPaperDTO.getModuleName());
 
-        return "eapproval/eappPaperForm";
+        if (eappPaperDTO.getWindowType().equals(EappPaperDTO.WINDOW_TYPE_MODAL)){
+            return "eapproval/eappPaperForm :: resultsList";
+        } else {
+            return "eapproval/eappPaperForm";
+        }
     }
 
     // TODO: 결재처리 "/paper/approve"

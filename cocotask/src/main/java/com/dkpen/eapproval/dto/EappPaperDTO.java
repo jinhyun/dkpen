@@ -3,6 +3,8 @@ package com.dkpen.eapproval.dto;
 import java.util.List;
 
 public class EappPaperDTO {
+    public static final String WINDOW_TYPE_MODAL = "modal";
+
     private long paperUid;
 
     private String paperSubject;
@@ -16,6 +18,26 @@ public class EappPaperDTO {
     private List<Long> paperUserUidList;
 
     private List<EappLineDTO> eappLineDTOList;
+
+    private String windowType;
+
+    private String moduleName;  //TODO: update
+
+    public String getModuleName() {
+        return moduleName;
+    }
+
+    public void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
+    }
+
+    public String getWindowType() {
+        return windowType;
+    }
+
+    public void setWindowType(String windowType) {
+        this.windowType = windowType;
+    }
 
     public List<EappLineDTO> getEappLineDTOList() {
         return eappLineDTOList;
