@@ -70,88 +70,89 @@
                     </div>
                 </div>
 
-                <div class="panel panel-default">
+                <div class="panel panel-default" style="width: 85%">
                     <div class="panel-heading">
                         <h3 class="panel-title">결재 대기</h3>
                     </div>
                     <div class="panel-body">
                         <table class="table table-hover" id="userListTable">
                             <thead>
-                            <tr>
-                                <th colspan="2">제목</th>
-                                <th>등록자</th>
-                            </tr>
+                                <tr>
+                                    <th colspan="2">제목</th>
+                                    <th>등록자</th>
+                                </tr>
                             </thead>
-                            <tbody>
-                            <tr th:each="waitPaperDTO: ${waitPaperDTOList}" >
-                                <td style="width: 3px">
-                                    <span class="glyphicon glyphicon-new-window"
-                                         data-toggle="modal" data-target="#eappPaperModal"
-                                         th:onclick="'javascript:modalPaperView(' + ${waitPaperDTO.paperUid} + ')'">
-                                    </span>
-                                </td>
-                                <td id="waitPaperSubject" th:text="${waitPaperDTO.paperSubject}" th:onclick="'javascript:goToViewPaper(' + ${waitPaperDTO.paperUid} + ')'"></td>
-                                <td id="waitPaperRegUserName" th:text="${waitPaperDTO.paperRegUserName}"></td>
-                            </tr>
+                            <tbody th:each="waitPaperDTO: ${waitPaperDTOList}" >
+                                <tr>
+                                    <td style="width: 3px">
+                                        <span class="glyphicon glyphicon-new-window"
+                                             data-toggle="modal" data-target="#eappPaperModal"
+                                             th:onclick="'javascript:modalPaperView(' + ${waitPaperDTO.paperUid} + ')'">
+                                        </span>
+                                    </td>
+                                    <td id="waitPaperSubject" th:text="${waitPaperDTO.paperSubject}" th:onclick="'javascript:goToViewPaper(' + ${waitPaperDTO.paperUid} + ')'"></td>
+                                    <td id="waitPaperRegUserName" th:text="${waitPaperDTO.paperRegUserName}"></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="panel-body text-right"><a>더보기</a></div>
                 </div>
 
-                <div class="panel panel-default">
+                <div class="panel panel-default" style="width: 85%">
                     <div class="panel-heading">
                         <h3 class="panel-title">결재 진행</h3>
                     </div>
                     <div class="panel-body">
                         <table class="table table-hover" id="userListTable">
                             <thead>
-                            <tr>
-                                <th colspan="2">제목</th>
-                                <th>등록자</th>
-                            </tr>
+                                <tr>
+                                    <th colspan="2">제목</th>
+                                    <th>등록자</th>
+                                </tr>
                             </thead>
 
                             <tbody>
-                            <tr th:each="progressPaperDTO: ${progressPaperDTOList}">
-                                <td style="width: 3px">
-                                    <span class="glyphicon glyphicon-new-window"
-                                          data-toggle="modal" data-target="#eappPaperModal"
-                                          th:onclick="'javascript:modalPaperView(' + ${progressPaperDTO.paperUid} + ')'">
-                                    </span>
-                                </td>
-                                <td id="progressPaperSubject" th:text="${progressPaperDTO.paperSubject}" th:onclick="'javascript:goToViewPaper(' + ${progressPaperDTO.paperUid} + ')'"></td>
-                                <td id="progressPaperRegUserName" th:text="${progressPaperDTO.paperRegUserName}"></td>
-                            </tr>
+                                <tr th:each="progressPaperDTO: ${progressPaperDTOList}">
+                                    <td style="width: 3px">
+                                        <span class="glyphicon glyphicon-new-window"
+                                              data-toggle="modal" data-target="#eappPaperModal"
+                                              th:onclick="'javascript:modalPaperView(' + ${progressPaperDTO.paperUid} + ')'">
+                                        </span>
+                                    </td>
+                                    <td id="progressPaperSubject" th:text="${progressPaperDTO.paperSubject}" th:onclick="'javascript:goToViewPaper(' + ${progressPaperDTO.paperUid} + ')'"></td>
+                                    <td id="progressPaperRegUserName" th:text="${progressPaperDTO.paperRegUserName}"></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="panel-body text-right"><a>더보기</a></div>
                 </div>
 
-                <div class="panel panel-default">
+                <div class="panel panel-default" style="width: 85%">
                     <div class="panel-heading">
                         <h3 class="panel-title">결재 완료</h3>
                     </div>
                     <div class="panel-body">
                         <table class="table table-hover" id="userListTable">
                             <thead>
-                            <tr>
-                                <th colspan="2">제목</th>
-                                <th>등록자</th>
-                            </tr>
+                                <tr>
+                                    <th colspan="2">제목</th>
+                                    <th>등록자</th>
+                                </tr>
                             </thead>
+
                             <tbody>
-                            <tr th:each="archivePaperDTO: ${archivePaperDTOList}" onclick="goToViewPaper(this);">
-                                <td style="width: 3px">
-                                    <span class="glyphicon glyphicon-new-window"
-                                          data-toggle="modal" data-target="#eappPaperModal"
-                                          th:onclick="'javascript:modalPaperView(' + ${archivePaperDTO.paperUid} + ')'">
-                                    </span>
-                                </td>
-                                <td id="archivePaperSubject" th:text="${archivePaperDTO.paperSubject}" th:onclick="'javascript:goToViewPaper(' + ${archivePaperDTO.paperUid} + ')'"></td>
-                                <td id="archivePaperRegUserName" th:text="${archivePaperDTO.paperRegUserName}"></td>
-                            </tr>
+                                <tr th:each="archivePaperDTO: ${archivePaperDTOList}" onclick="goToViewPaper(this);">
+                                    <td style="width: 3px">
+                                        <span class="glyphicon glyphicon-new-window"
+                                              data-toggle="modal" data-target="#eappPaperModal"
+                                              th:onclick="'javascript:modalPaperView(' + ${archivePaperDTO.paperUid} + ')'">
+                                        </span>
+                                    </td>
+                                    <td id="archivePaperSubject" th:text="${archivePaperDTO.paperSubject}" th:onclick="'javascript:goToViewPaper(' + ${archivePaperDTO.paperUid} + ')'"></td>
+                                    <td id="archivePaperRegUserName" th:text="${archivePaperDTO.paperRegUserName}"></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
