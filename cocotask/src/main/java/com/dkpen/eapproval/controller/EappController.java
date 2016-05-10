@@ -127,7 +127,7 @@ public class EappController {
         List<EappPaperDTO> waitPaperDTOList = approveService.getWaitPaperList(loginUserDTO);    //TODO: resultPaperDTOList
         model.addAttribute("waitPaperDTOList", waitPaperDTOList);   //TODO: paperDTOList
         model.addAttribute("eappPaperDTO", new EappPaperDTO());
-        return "eapproval/eappPaperWaitList";
+        return "redirect:/eapp/paper/progressList";
     }
 
     // TODO: 결재문서 수정 "/paper/edit"
