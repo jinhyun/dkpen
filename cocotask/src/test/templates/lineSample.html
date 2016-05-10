@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>결재선 샘플</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th colspan="2">제목</th>
+                <th>등록자</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="width: 3px">
+                    new
+                </td>
+                <td>
+                    4월14일 슈퍼마리오팀 화이팅 회식비 지출외
+                </td>
+                <td>
+                    안나
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" class="line">
+                    <div data-lineOrder="0" data-approveStatus="draft" data-positionPaper="none"> 111 </div>
+                    <div data-lineOrder="1" data-approveStatus="done" data-positionPaper="none"> 222 </div>
+                    <div data-lineOrder="2" data-approveStatus="done" data-positionPaper="none"> 333 </div>
+                    <div data-lineOrder="3" data-approveStatus="none" data-positionPaper="here"> 444 </div>
+                    <div data-lineOrder="4" data-approveStatus="none" data-positionPaper="none"> 555 </div>
+                    <div data-lineOrder="5" data-approveStatus="none" data-positionPaper="none"> 666 </div>
+                    <div data-lineOrder="6" data-approveStatus="none" data-positionPaper="none"> 777 </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 3px">
+                    new
+                </td>
+                <td>
+                    4월14일 슈퍼마리오팀 화이팅 회식비 지출외
+                </td>
+                <td>
+                    안나
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" class="line">
+                    <div data-lineOrder="0" data-approveStatus="draft" data-positionPaper="none"> 111 </div>
+                    <div data-lineOrder="1" data-approveStatus="done" data-positionPaper="none"> 222 </div>
+                    <div data-lineOrder="2" data-approveStatus="done" data-positionPaper="none"> 333 </div>
+                    <div data-lineOrder="3" data-approveStatus="done" data-positionPaper="none"> 444 </div>
+                    <div data-lineOrder="4" data-approveStatus="done" data-positionPaper="none"> 555 </div>
+                    <div data-lineOrder="5" data-approveStatus="none" data-positionPaper="here"> 666 </div>
+                    <div data-lineOrder="6" data-approveStatus="none" data-positionPaper="none"> 777 </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- css -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"/>
+
+    <!-- javascript library -->
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <style type="text/css">
+        .line > div {
+            float: left;
+            border: solid 1px;
+            margin: 5px;
+            padding: 3px;
+        }
+
+        [data-approveStatus="draft"], [data-approveStatus="done"] {
+            background: #9dc8e2;
+            color: #fff;
+        }
+
+        [data-positionPaper="here"] {
+            background: #6270d1;
+            color: #fff;
+        }
+
+        /*
+        [data-approveStatus="reject"]{
+            background: #ff3111;
+            color: #fff;
+        }
+        */
+    </style>
+</body>
+</html>

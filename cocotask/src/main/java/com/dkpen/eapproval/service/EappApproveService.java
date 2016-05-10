@@ -118,6 +118,11 @@ public class EappApproveService {
 
         List<EappPaperDTO> waitPaperDTOList = paperRepository.searchWaitPaperList(user, EappLineDTO.PAPER_POSITION_HERE);
 
+        for (int i = 0; i < waitPaperDTOList.size(); i++) {
+            List <EappLineDTO> lineDTOList = lineRepository.searchLine(waitPaperDTOList.get(i).getPaperUid());
+            waitPaperDTOList.get(i).setEappLineDTOList(lineDTOList);
+        }
+
         return waitPaperDTOList;
     }
 
@@ -130,6 +135,11 @@ public class EappApproveService {
         List<EappPaperDTO> progressPaperDTOList = paperRepository.searchProgressPaperList(user,
                 EappLineDTO.PAPER_STATUS_PROGRESS,
                 EappLineDTO.PAPER_POSITION_NONE);
+
+        for (int i = 0; i < progressPaperDTOList.size(); i++) {
+            List <EappLineDTO> lineDTOList = lineRepository.searchLine(progressPaperDTOList.get(i).getPaperUid());
+            progressPaperDTOList.get(i).setEappLineDTOList(lineDTOList);
+        }
 
         return progressPaperDTOList;
     }

@@ -4,19 +4,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>E-Approval</title>
     <!-- css -->
-    <!--<link type="text/css" rel="stylesheet" href="/cocotask/webjars/bootstrap/3.3.5/css/bootstrap.css"/>-->
+    <link type="text/css" rel="stylesheet" href="/cocotask/webjars/bootstrap/3.3.5/css/bootstrap.css"/>
     <link type="text/css" rel="stylesheet" href="/cocotask/static/css/layout.css"/>
 
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"/>
-
-
     <!-- javascript library -->
-    <!--<script type="text/javascript" src="/cocotask/webjars/jquery/2.1.4/jquery.min.js"/>-->
-    <!--<script type="text/javascript" src="/cocotask/webjars/bootstrap/3.3.5/js/bootstrap.min.js"/>-->
+    <script type="text/javascript" src="/cocotask/webjars/jquery/2.1.4/jquery.min.js"/>
+    <script type="text/javascript" src="/cocotask/webjars/bootstrap/3.3.5/js/bootstrap.min.js"/>
     <script type="text/javascript" src="/cocotask/static/js/editor/ckeditor/ckeditor.js"/>
-
-    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
     <!-- javascript module -->
     <script type="text/javascript" src="/cocotask/static/js/eapproval/eappEditor.js"/>
@@ -74,7 +68,7 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">결재 대기</h3>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body" style="padding-bottom: 0px">
                         <table class="table table-hover" id="userListTable">
                             <thead>
                                 <tr>
@@ -82,7 +76,7 @@
                                     <th>등록자</th>
                                 </tr>
                             </thead>
-                            <tbody th:each="waitPaperDTO: ${waitPaperDTOList}" >
+                            <tbody th:each="waitPaperDTO : ${waitPaperDTOList}" >
                                 <tr>
                                     <td style="width: 3px">
                                         <span class="glyphicon glyphicon-new-window"
@@ -93,17 +87,27 @@
                                     <td id="waitPaperSubject" th:text="${waitPaperDTO.paperSubject}" th:onclick="'javascript:goToViewPaper(' + ${waitPaperDTO.paperUid} + ')'"></td>
                                     <td id="waitPaperRegUserName" th:text="${waitPaperDTO.paperRegUserName}"></td>
                                 </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <div th:each="lineDTO : ${waitPaperDTO.eappLineDTOList}">
+                                            <div data:lineOrder="${lineDTO.lineOrder}" data:approveStatus="${lineDTO.approveStatus}"
+                                                 data:positionPaper="${lineDTO.positionPaper}" th:text="${lineDTO.lineUserName}"
+                                                 class="line">
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="panel-body text-right"><a>더보기</a></div>
+                    <div class="panel-body text-right" style="padding-top:0px"><a>더보기</a></div>
                 </div>
 
                 <div class="panel panel-default" style="width: 85%">
                     <div class="panel-heading">
                         <h3 class="panel-title">결재 진행</h3>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body" style="padding-bottom: 0px">
                         <table class="table table-hover" id="userListTable">
                             <thead>
                                 <tr>
@@ -112,8 +116,8 @@
                                 </tr>
                             </thead>
 
-                            <tbody>
-                                <tr th:each="progressPaperDTO: ${progressPaperDTOList}">
+                            <tbody th:each="progressPaperDTO : ${progressPaperDTOList}">
+                                <tr>
                                     <td style="width: 3px">
                                         <span class="glyphicon glyphicon-new-window"
                                               data-toggle="modal" data-target="#eappPaperModal"
@@ -123,17 +127,27 @@
                                     <td id="progressPaperSubject" th:text="${progressPaperDTO.paperSubject}" th:onclick="'javascript:goToViewPaper(' + ${progressPaperDTO.paperUid} + ')'"></td>
                                     <td id="progressPaperRegUserName" th:text="${progressPaperDTO.paperRegUserName}"></td>
                                 </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <div th:each="lineDTO : ${progressPaperDTO.eappLineDTOList}">
+                                            <div data:lineOrder="${lineDTO.lineOrder}" data:approveStatus="${lineDTO.approveStatus}"
+                                                 data:positionPaper="${lineDTO.positionPaper}" th:text="${lineDTO.lineUserName}"
+                                                 class="line">
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="panel-body text-right"><a>더보기</a></div>
+                    <div class="panel-body text-right" style="padding-top:0px"><a>더보기</a></div>
                 </div>
 
                 <div class="panel panel-default" style="width: 85%">
                     <div class="panel-heading">
                         <h3 class="panel-title">결재 완료</h3>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body" style="padding-bottom: 0px">
                         <table class="table table-hover" id="userListTable">
                             <thead>
                                 <tr>
@@ -156,7 +170,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="panel-body text-right"><a>더보기</a></div>
+                    <div class="panel-body text-right" style="padding-top:0px"><a>더보기</a></div>
                 </div>
             </div>
         </div>
@@ -164,5 +178,30 @@
 </div>
 
 <div th:replace="fragments/footer :: footer"></div>
+
+<style type="text/css">
+    .line {
+        float: left;
+        margin: 3px;
+        padding: 3px;
+    }
+
+    [data-approveStatus="draft"], [data-approveStatus="done"] {
+        background: #9dc8e2;
+        color: #fff;
+    }
+
+    [data-positionPaper="here"] {
+        background: #6270d1;
+        color: #fff;
+    }
+
+    /*
+    [data-approveStatus="reject"]{
+        background: #ff3111;
+        color: #fff;
+    }
+    */
+</style>
 </body>
 </html>
