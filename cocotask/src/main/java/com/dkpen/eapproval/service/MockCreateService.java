@@ -72,18 +72,53 @@ public class MockCreateService {
         createPaper(paper1a);
 
         // 결재대기
-        EappPaperDTO paper1b = new EappPaperDTO();
-        paper1b.setPaperSubject("징계의결에 따른 교육안료 보고");
-        paper1b.setPaperContent("1. 관련근거 제5-6회 인사위원회 결과보고 \n 2.위 관련근거에 의거하여 실시한 성희롱예방교육의 이수 실적을 아래와 같이" +
+        EappPaperDTO paper2a = new EappPaperDTO();
+        paper2a.setPaperSubject("징계의결에 따른 교육안료 보고");
+        paper2a.setPaperContent("1. 관련근거 제5-6회 인사위원회 결과보고 \n 2.위 관련근거에 의거하여 실시한 성희롱예방교육의 이수 실적을 아래와 같이" +
                 "보고하오니 승인여 주시기 바랍니다");
-        createPaper(paper1b);
+        createPaper(paper2a);
+
+        // 결재대기
+        EappPaperDTO paper3a = new EappPaperDTO();
+        paper3a.setPaperSubject("징계의결에 따른 교육안료 보고");
+        paper3a.setPaperContent("1. 관련근거 제5-6회 인사위원회 결과보고 \n 2.위 관련근거에 의거하여 실시한 성희롱예방교육의 이수 실적을 아래와 같이" +
+                "보고하오니 승인여 주시기 바랍니다");
+        createPaper(paper3a);
+
+        // 결재대기
+        EappPaperDTO paper4a = new EappPaperDTO();
+        paper4a.setPaperSubject("징계의결에 따른 교육안료 보고");
+        paper4a.setPaperContent("1. 관련근거 제5-6회 인사위원회 결과보고 \n 2.위 관련근거에 의거하여 실시한 성희롱예방교육의 이수 실적을 아래와 같이" +
+                "보고하오니 승인여 주시기 바랍니다");
+        createPaper(paper4a);
+
+        // 결재대기
+        EappPaperDTO paper5a = new EappPaperDTO();
+        paper5a.setPaperSubject("징계의결에 따른 교육안료 보고");
+        paper5a.setPaperContent("1. 관련근거 제5-6회 인사위원회 결과보고 \n 2.위 관련근거에 의거하여 실시한 성희롱예방교육의 이수 실적을 아래와 같이" +
+                "보고하오니 승인여 주시기 바랍니다");
+        createPaper(paper5a);
+
+        // 결재대기
+        EappPaperDTO paper6a = new EappPaperDTO();
+        paper6a.setPaperSubject("징계의결에 따른 교육안료 보고");
+        paper6a.setPaperContent("1. 관련근거 제5-6회 인사위원회 결과보고 \n 2.위 관련근거에 의거하여 실시한 성희롱예방교육의 이수 실적을 아래와 같이" +
+                "보고하오니 승인여 주시기 바랍니다");
+        createPaper(paper6a);
+
+        // 결재대기
+        EappPaperDTO paper7a = new EappPaperDTO();
+        paper7a.setPaperSubject("징계의결에 따른 교육안료 보고");
+        paper7a.setPaperContent("1. 관련근거 제5-6회 인사위원회 결과보고 \n 2.위 관련근거에 의거하여 실시한 성희롱예방교육의 이수 실적을 아래와 같이" +
+                "보고하오니 승인여 주시기 바랍니다");
+        createPaper(paper7a);
 
         // 결재진행
-        EappPaperDTO paper1 = new EappPaperDTO();
-        paper1.setPaperSubject("정책사례개발연구용역 소형과재 최종보고서 부처의견 수렴");
-        paper1.setPaperContent("정책사례개발추진단102(2007. 4. 12)등 과 관련됩니다");
-        createPaper(paper1);
-        approvePaper(2L, paper1);
+        EappPaperDTO paper1b = new EappPaperDTO();
+        paper1b.setPaperSubject("정책사례개발연구용역 소형과재 최종보고서 부처의견 수렴");
+        paper1b.setPaperContent("정책사례개발추진단102(2007. 4. 12)등 과 관련됩니다");
+        createPaper(paper1b);
+        approvePaper(2L, paper1b);
 
         // 결재진행
         EappPaperDTO paper2b = new EappPaperDTO();
