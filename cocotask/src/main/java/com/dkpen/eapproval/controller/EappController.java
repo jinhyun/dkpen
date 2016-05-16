@@ -1,18 +1,18 @@
 package com.dkpen.eapproval.controller;
 
+import com.dkpen.common.dto.PagedList;
+import com.dkpen.common.dto.Paging;
+import com.dkpen.common.dto.PagingRequest;
 import com.dkpen.eapproval.domain.User;
-import com.dkpen.eapproval.dto.EappApproveDTO;
-import com.dkpen.eapproval.dto.EappArchivePaperDTO;
-import com.dkpen.eapproval.dto.EappPaperDTO;
-import com.dkpen.eapproval.dto.UserDTO;
+import com.dkpen.eapproval.dto.*;
 import com.dkpen.eapproval.service.EappApproveService;
 import com.dkpen.user.domain.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -67,12 +67,14 @@ public class EappController {
     }
 
     @RequestMapping(value = "/paper/waitList", method = RequestMethod.GET)
-    public String viewWaitList(Model model) {
+    public String viewWaitList(@RequestParam (value = "pageNumber", required = false) Long pageNumber, Model model) {
         User loginUser = CurrentUser.getCurrentUser();
         UserDTO loginUserDTO = approveService.getUser(loginUser.getUid());
-        List<EappPaperDTO> waitPaperDTOList = approveService.getWaitPaperList(loginUserDTO);    //TODO: resultPaperDTOList
+        PagedList<EappPaperDTO> waitPaperDTOList = approveService.getWaitPaperPageList(loginUserDTO, new PagingRequest(pageNumber));
 
-        model.addAttribute("waitPaperDTOList", waitPaperDTOList);   //TODO: paperDTOList
+        model.addAttribute("waitPaperDTOList", waitPaperDTOList.getSource());
+        model.addAttribute("waitPaperPaging", waitPaperDTOList.getPaging());
+        model.addAttribute("waitPaperPagingRequest", waitPaperDTOList.getPaging().getPagingRequest());
         model.addAttribute("eappPaperDTO", new EappPaperDTO());
 
         return "eapproval/eappPaperWaitList";

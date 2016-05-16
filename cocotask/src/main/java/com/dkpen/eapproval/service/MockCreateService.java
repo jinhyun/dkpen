@@ -80,37 +80,33 @@ public class MockCreateService {
 
         // 결재대기
         EappPaperDTO paper3a = new EappPaperDTO();
-        paper3a.setPaperSubject("징계의결에 따른 교육안료 보고");
+        paper3a.setPaperSubject("33333");
         paper3a.setPaperContent("1. 관련근거 제5-6회 인사위원회 결과보고 \n 2.위 관련근거에 의거하여 실시한 성희롱예방교육의 이수 실적을 아래와 같이" +
                 "보고하오니 승인여 주시기 바랍니다");
         createPaper(paper3a);
 
         // 결재대기
         EappPaperDTO paper4a = new EappPaperDTO();
-        paper4a.setPaperSubject("징계의결에 따른 교육안료 보고");
-        paper4a.setPaperContent("1. 관련근거 제5-6회 인사위원회 결과보고 \n 2.위 관련근거에 의거하여 실시한 성희롱예방교육의 이수 실적을 아래와 같이" +
-                "보고하오니 승인여 주시기 바랍니다");
+        paper4a.setPaperSubject("44444");
+        paper4a.setPaperContent("4 contents");
         createPaper(paper4a);
 
         // 결재대기
         EappPaperDTO paper5a = new EappPaperDTO();
-        paper5a.setPaperSubject("징계의결에 따른 교육안료 보고");
-        paper5a.setPaperContent("1. 관련근거 제5-6회 인사위원회 결과보고 \n 2.위 관련근거에 의거하여 실시한 성희롱예방교육의 이수 실적을 아래와 같이" +
-                "보고하오니 승인여 주시기 바랍니다");
+        paper5a.setPaperSubject("55555");
+        paper4a.setPaperContent("5 contents");
         createPaper(paper5a);
 
         // 결재대기
         EappPaperDTO paper6a = new EappPaperDTO();
-        paper6a.setPaperSubject("징계의결에 따른 교육안료 보고");
-        paper6a.setPaperContent("1. 관련근거 제5-6회 인사위원회 결과보고 \n 2.위 관련근거에 의거하여 실시한 성희롱예방교육의 이수 실적을 아래와 같이" +
-                "보고하오니 승인여 주시기 바랍니다");
+        paper6a.setPaperSubject("66666");
+        paper4a.setPaperContent("6 contents");
         createPaper(paper6a);
 
         // 결재대기
         EappPaperDTO paper7a = new EappPaperDTO();
-        paper7a.setPaperSubject("징계의결에 따른 교육안료 보고");
-        paper7a.setPaperContent("1. 관련근거 제5-6회 인사위원회 결과보고 \n 2.위 관련근거에 의거하여 실시한 성희롱예방교육의 이수 실적을 아래와 같이" +
-                "보고하오니 승인여 주시기 바랍니다");
+        paper7a.setPaperSubject("77777");
+        paper4a.setPaperContent("7 contents");
         createPaper(paper7a);
 
         // 결재진행

@@ -1,5 +1,7 @@
 package com.dkpen.eapproval.service;
 
+import com.dkpen.common.dto.PagedList;
+import com.dkpen.common.dto.PagingRequest;
 import com.dkpen.eapproval.domain.*;
 import com.dkpen.eapproval.dto.*;
 import com.dkpen.eapproval.repository.*;
@@ -278,5 +280,32 @@ public class EappApproveService {
      */
     public List<EappArchivePaperDTO> getArchivePaperList(UserDTO userDTO) {
         return archivePaperRepository.searchPaperList(userRepository.findOne(userDTO.getUid()));
+    }
+
+    /**
+     * 페이징 처리된 결재대기 데이터를 조회한다.
+     * @param userDTO
+     * @param pageDTO
+     * @return
+     */
+    public PagedList<EappPaperDTO> getWaitPaperPageList(UserDTO userDTO, PagingRequest pagingRequest) {
+        // TODO: UserDTO > User 로 변경하는 로직
+        User user = new User();
+        user.setUid(userDTO.getUid());
+        user.setEmail(userDTO.getEmail());
+        user.setName(userDTO.getName());
+
+        PagedList<EappPaperDTO> waitPaperPagedList =
+                paperRepository.searchWaitPaperPageList(user, EappLineDTO.PAPER_POSITION_HERE, pagingRequest);
+        List<EappPaperDTO> waitPaperList = waitPaperPagedList.getSource();
+
+        for (int i = 0; i < waitPaperList.size(); i++) {
+            List <EappLineDTO> lineDTOList = lineRepository.searchLine(waitPaperList.get(i).getPaperUid());
+            waitPaperList.get(i).setEappLineDTOList(lineDTOList);
+        }
+
+        waitPaperPagedList.setSource(waitPaperList);
+
+        return waitPaperPagedList;
     }
 }

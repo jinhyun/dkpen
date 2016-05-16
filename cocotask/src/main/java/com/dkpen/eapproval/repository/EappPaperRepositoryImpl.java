@@ -1,9 +1,13 @@
 package com.dkpen.eapproval.repository;
 
+import com.dkpen.common.dto.PagedList;
+import com.dkpen.common.dto.Paging;
+import com.dkpen.common.dto.PagingRequest;
 import com.dkpen.eapproval.domain.QEappLine;
 import com.dkpen.eapproval.domain.QEappPaper;
 import com.dkpen.eapproval.domain.User;
 import com.dkpen.eapproval.dto.EappPaperDTO;
+import com.querydsl.core.QueryModifiers;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
@@ -77,5 +81,32 @@ public class EappPaperRepositoryImpl implements CustomEappPaperRepository {
                 .fetchOne();
 
         return eappPaperDTO;
+    }
+
+    @Override
+    public PagedList<EappPaperDTO> searchWaitPaperPageList(User user, String positionPaper, PagingRequest pagingRequest) {
+        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+        QEappPaper qEappPaper = QEappPaper.eappPaper;
+        QEappLine qEappLine = QEappLine.eappLine;
+
+        List<EappPaperDTO> paperList = queryFactory.selectFrom(qEappPaper)
+                .select(Projections.bean(EappPaperDTO.class,
+                        qEappPaper.uid.as("paperUid"),
+                        qEappPaper.subject.as("paperSubject"),
+                        qEappPaper.content.as("paperContent"),
+                        qEappPaper.regDate.as("paperRegDate"),
+                        qEappPaper.regUserName.as("paperRegUserName")))
+                .innerJoin(qEappPaper.EappLineList, qEappLine)
+                .where(qEappLine.user.eq(user), qEappLine.positionPaper.eq(positionPaper))
+                .restrict(new QueryModifiers(pagingRequest.getPageSize(), pagingRequest.getOffset()))
+                .fetch();
+
+        Long paperListTotalCount = queryFactory.selectFrom(qEappPaper)
+                .select(qEappPaper.uid)
+                .innerJoin(qEappPaper.EappLineList, qEappLine)
+                .where(qEappLine.user.eq(user), qEappLine.positionPaper.eq(positionPaper))
+                .fetchCount();
+
+        return new PagedList(paperList, new Paging(paperListTotalCount, pagingRequest));
     }
 }

@@ -1,8 +1,11 @@
 import com.dkpen.Application;
+import com.dkpen.common.dto.PagedList;
+import com.dkpen.common.dto.PagingRequest;
 import com.dkpen.eapproval.domain.EappLine;
 import com.dkpen.eapproval.domain.EappPaper;
 import com.dkpen.eapproval.domain.User;
 import com.dkpen.eapproval.dto.EappPaperDTO;
+import com.dkpen.eapproval.dto.UserDTO;
 import com.dkpen.eapproval.repository.EappLineRepository;
 import com.dkpen.eapproval.repository.EappPaperRepository;
 import com.dkpen.eapproval.repository.UserRepository;
@@ -29,6 +32,21 @@ public class EappServiceTest {
     @Autowired private EappPaperRepository paperRepository;
     @Autowired private EappLineRepository lineRepository;
     @Autowired private MockCreateService mockCreateService;
+
+    @Test
+    public void getWaitPaperPageList() {
+        UserDTO elsa = approveService.getUser(2L);
+
+        Long currentPageNumber = 3L;
+        Long pageSize = 2L;
+        PagingRequest pagingRequest = new PagingRequest(currentPageNumber, pageSize);
+
+        PagedList<EappPaperDTO> paperDTOPages = approveService.getWaitPaperPageList(elsa, pagingRequest);
+        List<EappPaperDTO> paperDTOPageList = paperDTOPages.getSource();
+
+        assertThat(paperDTOPageList.size(), is(2));
+        assertThat(paperDTOPageList.get(0).getPaperSubject(), is("55555"));
+    }
 
     @Test
     public void getUserListTest() {
