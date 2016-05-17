@@ -15,4 +15,6 @@ public interface CustomEappPaperRepository {
     EappPaperDTO searchPaper(long paperUid);
 
     PagedList<EappPaperDTO> searchWaitPaperPageList(User user, String positionPaper, PagingRequest pagingRequest);
+
+    PagedList<EappPaperDTO> searchProgressPaperPageList(User user, String paperStatusProgress, String positionPaper, PagingRequest pagingRequest);
 }

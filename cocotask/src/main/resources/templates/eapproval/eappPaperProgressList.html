@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>E-Approval</title>
+    <!-- css -->
+    <link type="text/css" rel="stylesheet" href="/cocotask/webjars/bootstrap/3.3.5/css/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="/cocotask/static/css/layout.css"/>
+
+    <!-- javascript library -->
+    <script type="text/javascript" src="/cocotask/webjars/jquery/2.1.4/jquery.min.js"/>
+    <script type="text/javascript" src="/cocotask/webjars/bootstrap/3.3.5/js/bootstrap.min.js"/>
+
+    <!-- javascript module -->
+    <script type="text/javascript" src="/cocotask/static/js/eapproval/eappPaperWaitList.js"/>
+
+    <title>Cocotask - 결재진행</title>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row content">
+        <div th:replace="eapproval/eappLeft :: eappLeft"></div>
+
+        <div id="eappContents" class="col-sm-9">
+            <h4>결재진행</h4>
+            <div class="container">
+                <form id="paperWaitListForm" name="paperWaitListForm" th:object="${eappPaperDTO}">
+                    <input type="hidden" id="moduleName" th:field="*{moduleName}"/>
+
+                    <table class="table table-hover" id="userListTable" style="width: 85%">
+                        <thead>
+                            <tr>
+                                <th>제목</th>
+                                <th>등록자</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="progressPaperDTO: ${progressPaperDTOList}" th:onclick="'javascript:goToViewPaper('+${progressPaperDTO.paperUid}+');'">
+                                <td id="paperSubject" th:text="${progressPaperDTO.paperSubject}"/>
+                                <td id="paperRegUserName" th:text="${progressPaperDTO.paperRegUserName}"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+
+            <div class="col-md-12 text-center">
+                <input id="selectedPageNumber" type="hidden" th:value="${progressPaperPagingRequest.pageNumber}"/>
+                <input id="totalPages" type="hidden" th:value="${progressPaperPaging.totalPages}"/>
+
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+
+                    <li class="page-item" id="pageItemLast">
+                    </li>
+
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+<script type="text/javascript">
+    (function(){
+        createPagination();
+    })();
+</script>
+</body>
+</html>

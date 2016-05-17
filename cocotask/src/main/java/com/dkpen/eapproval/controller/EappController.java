@@ -79,6 +79,26 @@ public class EappController {
     }
 
     /**
+     * 결재진행 목록을 조회한다.
+     * @param pageNumber
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/paper/progressList", method = RequestMethod.GET)
+    public String viewProgressList(@RequestParam (value = "pageNumber", required = false) Long pageNumber, Model model) {
+        User loginUser = CurrentUser.getCurrentUser();
+        UserDTO loginUserDTO = approveService.getUser(loginUser.getUid());
+        PagedList<EappPaperDTO> progressPaperDTOList = approveService.getProgressPaperPageList(loginUserDTO, new PagingRequest(pageNumber));
+
+        model.addAttribute("progressPaperDTOList", progressPaperDTOList.getSource());
+        model.addAttribute("progressPaperPaging", progressPaperDTOList.getPaging());
+        model.addAttribute("progressPaperPagingRequest", progressPaperDTOList.getPaging().getPagingRequest());
+        model.addAttribute("eappPaperDTO", new EappPaperDTO());
+
+        return "eapproval/eappPaperProgressList";
+    }
+
+    /**
      * 현황판
      * @param model
      * @return

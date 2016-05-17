@@ -308,4 +308,24 @@ public class EappApproveService {
 
         return waitPaperPagedList;
     }
+
+    public PagedList<EappPaperDTO> getProgressPaperPageList(UserDTO userDTO, PagingRequest pagingRequest) {
+        User user = new User();
+        user.setUid(userDTO.getUid());
+        user.setEmail(userDTO.getEmail());
+        user.setName(userDTO.getName());
+
+        PagedList<EappPaperDTO> progressPaperPagedList = paperRepository.searchProgressPaperPageList(user,
+                EappLineDTO.PAPER_STATUS_PROGRESS, EappLineDTO.PAPER_POSITION_NONE, pagingRequest);
+        List<EappPaperDTO> progressPaperList = progressPaperPagedList.getSource();
+
+        for (int i = 0; i < progressPaperList.size(); i++) {
+            List <EappLineDTO> lineDTOList = lineRepository.searchLine(progressPaperList.get(i).getPaperUid());
+            progressPaperList.get(i).setEappLineDTOList(lineDTOList);
+        }
+
+        progressPaperPagedList.setSource(progressPaperList);
+
+        return progressPaperPagedList;
+    }
 }

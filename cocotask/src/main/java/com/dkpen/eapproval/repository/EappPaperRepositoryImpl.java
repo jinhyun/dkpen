@@ -109,4 +109,34 @@ public class EappPaperRepositoryImpl implements CustomEappPaperRepository {
 
         return new PagedList(paperList, new Paging(paperListTotalCount, pagingRequest));
     }
+
+    @Override
+    public PagedList<EappPaperDTO> searchProgressPaperPageList(User user, String paperStatusProgress, String positionPaper, PagingRequest pagingRequest) {
+        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+        QEappPaper qEappPaper = QEappPaper.eappPaper;
+        QEappLine qEappLine = QEappLine.eappLine;
+
+        List<EappPaperDTO> paperList = queryFactory.selectFrom(qEappPaper)
+                .select(Projections.bean(EappPaperDTO.class,
+                        qEappPaper.uid.as("paperUid"),
+                        qEappPaper.subject.as("paperSubject"),
+                        qEappPaper.content.as("paperContent"),
+                        qEappPaper.regDate.as("paperRegDate"),
+                        qEappPaper.regUserName.as("paperRegUserName")))
+                .innerJoin(qEappPaper.EappLineList, qEappLine)
+                .where(qEappLine.user.eq(user),
+                        qEappLine.paperStatus.eq(paperStatusProgress),
+                        qEappLine.positionPaper.eq(positionPaper))
+                .fetch();
+
+        Long paperListTotalCount = queryFactory.selectFrom(qEappPaper)
+                .select(qEappPaper.uid)
+                .innerJoin(qEappPaper.EappLineList, qEappLine)
+                .where(qEappLine.user.eq(user),
+                        qEappLine.paperStatus.eq(paperStatusProgress),
+                        qEappLine.positionPaper.eq(positionPaper))
+                .fetchCount();
+
+        return new PagedList<EappPaperDTO>(paperList, new Paging(paperListTotalCount, pagingRequest));
+    }
 }
