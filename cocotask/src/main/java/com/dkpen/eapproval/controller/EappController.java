@@ -1,14 +1,12 @@
 package com.dkpen.eapproval.controller;
 
 import com.dkpen.common.dto.PagedList;
-import com.dkpen.common.dto.Paging;
 import com.dkpen.common.dto.PagingRequest;
 import com.dkpen.eapproval.domain.User;
 import com.dkpen.eapproval.dto.*;
 import com.dkpen.eapproval.service.EappApproveService;
 import com.dkpen.user.domain.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +21,7 @@ public class EappController {
 
     @RequestMapping(value = "")
     public String eappMain() {
-        return "/eapproval/eapp";
+        return "redirect: /eapp/paper/statusBoard";
     }
 
     @RequestMapping(value = "/paper/createForm", method = RequestMethod.GET)
@@ -81,12 +79,12 @@ public class EappController {
     }
 
     /**
-     * 결재 진행
+     * 현황판
      * @param model
      * @return
      */
-    @RequestMapping(value = "/paper/progressList", method = RequestMethod.GET)
-    public String viewProgressList(Model model) {
+    @RequestMapping(value = "/paper/statusBoard", method = RequestMethod.GET)
+    public String viewStatusBoard(Model model) {
         User loginUser = CurrentUser.getCurrentUser();
         UserDTO loginUserDTO = approveService.getUser(loginUser.getUid());
 
@@ -99,7 +97,7 @@ public class EappController {
         model.addAttribute("archivePaperDTOList", archivePaperDTOList);
         model.addAttribute("eappPaperDTO", new EappPaperDTO());
 
-        return "eapproval/eappPaperProgressList";
+        return "eapproval/eappStatusBoard";
     }
 
     @RequestMapping(value = "/paper/view", method = RequestMethod.POST)
@@ -129,7 +127,7 @@ public class EappController {
         List<EappPaperDTO> waitPaperDTOList = approveService.getWaitPaperList(loginUserDTO);    //TODO: resultPaperDTOList
         model.addAttribute("waitPaperDTOList", waitPaperDTOList);   //TODO: paperDTOList
         model.addAttribute("eappPaperDTO", new EappPaperDTO());
-        return "redirect:/eapp/paper/progressList";
+        return "redirect:/eapp//paper/statusBoard";
     }
 
     // TODO: 결재문서 수정 "/paper/edit"
